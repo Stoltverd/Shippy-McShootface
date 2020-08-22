@@ -10,13 +10,16 @@ public class GameController : MonoBehaviour
     public float spawnWait;
     public float startWait;
     public float waveWait;
-    // Start is called before the first frame update
+
+    Pooler pooler;
+
     void Start()
     {
+        pooler = Pooler.Instance;
+
        StartCoroutine (SpawnWaves());
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -31,7 +34,10 @@ public class GameController : MonoBehaviour
             {
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
-                Instantiate(hazard, spawnPosition, spawnRotation);
+
+                //Spawn from pool
+                pooler.SpawnFromPool("Asteroid", spawnPosition, spawnRotation);
+
                 yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
             }
             yield return new WaitForSeconds(waveWait);

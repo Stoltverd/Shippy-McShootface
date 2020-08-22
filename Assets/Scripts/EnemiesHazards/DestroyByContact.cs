@@ -7,17 +7,6 @@ public class DestroyByContact : MonoBehaviour
     public GameObject explosion;
     public GameObject playerExplosion;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,7 +19,7 @@ public class DestroyByContact : MonoBehaviour
         {
             Instantiate(playerExplosion, other.GetComponent<Transform>().position, other.GetComponent<Transform>().rotation);
         }
-        Destroy(other.gameObject);
-        Destroy(gameObject);
+        other.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

@@ -20,7 +20,8 @@ public class Pooler : MonoBehaviour
         public int size;
     }
 
-
+    [SerializeField]
+    private GameObject spawnParent;
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDict;
 
@@ -38,6 +39,8 @@ public class Pooler : MonoBehaviour
                 GameObject obj = Instantiate(pool.prefab);
                 obj.SetActive(false);
                 objPool.Enqueue(obj);
+
+                obj.transform.SetParent(spawnParent.transform);
             }
             // Add pool to dictionary
             poolDict.Add(pool.tag, objPool);
