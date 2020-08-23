@@ -8,11 +8,13 @@ public class BGMover : MonoBehaviour
     Vector3 direction;
     [SerializeField]
     GameObject returnPoint;
+    [SerializeField]
+    float speed;
     float distance;
 
     void Start()
     {
-        direction = new Vector3(0, -2, 0);
+        direction = new Vector3(0, -speed, 0);
     }
 
 
