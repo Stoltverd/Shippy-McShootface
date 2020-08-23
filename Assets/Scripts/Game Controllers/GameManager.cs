@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,6 +33,8 @@ public class GameManager : MonoBehaviour
     //UI
     [SerializeField]
     private GameObject gameOverUI;
+    [SerializeField]
+    private GameObject inGameUI;
 
     //Components
     [SerializeField]
@@ -40,6 +43,8 @@ public class GameManager : MonoBehaviour
     GameObject player;
     [SerializeField]
     GameObject playerExplosion;
+    [SerializeField]
+    Slider playerHealth;
 
     void Start()
     {
@@ -63,13 +68,15 @@ public class GameManager : MonoBehaviour
         {
             if (gameOver == false)
             {
-                player.GetComponent<PlayerManager>().health = 0;
                 Instantiate(playerExplosion, player.transform.position, player.transform.rotation);
                 player.SetActive(false);
                 gameOverUI.SetActive(true);
+                inGameUI.SetActive(false);
             }
             gameOver = true;         
         }
+        player.GetComponent<PlayerManager>().health = Mathf.Clamp(player.GetComponent<PlayerManager>().health, 0, 100);
+        playerHealth.value = player.GetComponent<PlayerManager>().health;
     }
     private void RestartUpdate()
     {
