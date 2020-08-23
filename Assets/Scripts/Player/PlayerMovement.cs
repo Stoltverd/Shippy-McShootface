@@ -10,7 +10,7 @@ public class Boundary
     public float xMin, xMax, zMin, zMax;
 }
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
     public float speed;

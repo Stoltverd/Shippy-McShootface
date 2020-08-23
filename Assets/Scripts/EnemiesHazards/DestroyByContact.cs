@@ -5,8 +5,8 @@ using UnityEngine;
 public class DestroyByContact : MonoBehaviour
 {
     public GameObject explosion;
-    public GameObject playerExplosion;
-
+    [SerializeField]
+    float damage;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,9 +17,12 @@ public class DestroyByContact : MonoBehaviour
         Instantiate(explosion, GetComponent<Transform>().position, GetComponent<Transform>().rotation);
         if (other.tag == "Player")
         {
-            Instantiate(playerExplosion, other.GetComponent<Transform>().position, other.GetComponent<Transform>().rotation);
+            other.GetComponent<PlayerManager>().health -= damage;
         }
-        other.gameObject.SetActive(false);
+        else
+        {
+            other.gameObject.SetActive(false);
+        }
         gameObject.SetActive(false);
     }
 }
