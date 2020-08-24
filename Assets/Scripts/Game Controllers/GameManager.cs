@@ -46,6 +46,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Slider playerHealth;
 
+    //MergeChanges
+    public GameObject moneyText;
+    private int money;
+
     void Start()
     {
         gameOver = false;
@@ -54,6 +58,10 @@ public class GameManager : MonoBehaviour
         pooler = Pooler.Instance;
 
         StartCoroutine (SpawnWaves());
+
+
+        money = 0;
+        UpdateMoney();
     }
 
     void Update()
@@ -85,6 +93,16 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(currentScene.name);
         }
                
+    }
+
+    void UpdateMoney()
+    {
+        moneyText.GetComponent<Text>().text = "Money: " + money;
+    }
+    public void AddMoney(int newMoneyValue)
+    {
+        money += newMoneyValue;
+        UpdateMoney();
     }
 
     IEnumerator SpawnWaves()
