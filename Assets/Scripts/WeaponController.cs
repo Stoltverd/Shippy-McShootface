@@ -10,11 +10,17 @@ public class WeaponController : MonoBehaviour
     public float delay;
 
     private AudioSource audioSource;
+    private Pooler pooler;
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        InvokeRepeating("Fire", delay, fireRate);
+        if (gameObject.activeSelf)
+        {
+            InvokeRepeating("Fire", delay, fireRate);
+        }
+
+        pooler = Pooler.Instance;
     }
 
     // Update is called once per frame
@@ -25,7 +31,8 @@ public class WeaponController : MonoBehaviour
 
     void Fire()
     {
-        Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+        
+        pooler.SpawnFromPool("Enemy Bolt", shotSpawn.position, shotSpawn.rotation); //as GameObject;
         audioSource.Play();
     }
 }

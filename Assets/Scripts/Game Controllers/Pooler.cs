@@ -21,7 +21,7 @@ public class Pooler : MonoBehaviour
     }
 
     [SerializeField]
-    private GameObject spawnParent;
+    private GameObject spawnParent = default;
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDict;
 

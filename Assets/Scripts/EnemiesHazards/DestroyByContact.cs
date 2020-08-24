@@ -10,7 +10,7 @@ public class DestroyByContact : MonoBehaviour
     private GameManager gameController;
 
     [SerializeField]
-    float damage;
+    float damage = default;
 
     bool isPlayer;
 

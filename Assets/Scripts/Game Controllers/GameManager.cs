@@ -18,13 +18,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Vector3 spawnValues = new Vector3();
     [SerializeField]
-    int hazardCount;
+    int hazardCount = default;
     [SerializeField]
-    float spawnWait;
+    float spawnWait = default;
     [SerializeField]
-    float startWait;
+    float startWait = default;
     [SerializeField]
-    float waveWait;
+    float waveWait = default;
     bool gameOver;
     Scene currentScene;
 
@@ -32,19 +32,19 @@ public class GameManager : MonoBehaviour
 
     //UI
     [SerializeField]
-    private GameObject gameOverUI;
+    private GameObject gameOverUI = default;
     [SerializeField]
-    private GameObject inGameUI;
+    private GameObject inGameUI = default;
 
     //Components
     [SerializeField]
-    int hazardNumber;
+    int hazardNumber = default;
     [SerializeField]
-    GameObject player;
+    GameObject player = default;
     [SerializeField]
-    GameObject playerExplosion;
+    GameObject playerExplosion = default;
     [SerializeField]
-    Slider playerHealth;
+    Slider playerHealth = default;
 
     //MergeChanges
     public GameObject moneyText;
@@ -52,7 +52,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        gameOver = false;
+
+       gameOver = false;
         currentScene = SceneManager.GetActiveScene();
 
         pooler = Pooler.Instance;
