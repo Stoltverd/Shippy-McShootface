@@ -5,15 +5,15 @@ using UnityEngine;
 public class DestroyByTime : MonoBehaviour
 {
     public float lifeTime;
-    // Start is called before the first frame update
+
     void Start()
     {
         Destroy(gameObject, lifeTime);
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator DeactivateInTime(float time, GameObject obj)
     {
-        
+        yield return new WaitForSeconds(time); //Esperamos antes de tirarle cosas al principio
+        obj.SetActive(false);
     }
 }

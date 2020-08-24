@@ -10,7 +10,7 @@ public class Boundary
     public float xMin, xMax, zMin, zMax;
 }
 
-public class PlayerController : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
     public float speed;
@@ -21,15 +21,13 @@ public class PlayerController : MonoBehaviour
     public Transform shotSpawn;
     public float fireRate;
     private float nextFire;
+
+    private Pooler pooler;
     
-    private void Awake()
-    {
-        
-    }
 
     void Start()
     {
-        
+        pooler = Pooler.Instance;
     }
 
     private void FixedUpdate()//se ejecuta antes de cada step de la fisica 
@@ -53,7 +51,7 @@ public class PlayerController : MonoBehaviour
         {
             nextFire = Time.time + fireRate;
             //GameObject clone = 
-            Instantiate(shot, shotSpawn.position, shotSpawn.rotation); //as GameObject;
+            pooler.SpawnFromPool("Bullet", shotSpawn.position, shotSpawn.rotation); //as GameObject;
             GetComponent<AudioSource>().Play();
         }
         
