@@ -7,7 +7,7 @@ public class DestroyByContact : MonoBehaviour
     public GameObject explosion;
     public GameObject playerExplosion;
     public int moneyValue;
-    private GameController gameController;
+    private GameManager gameController;
 
     // Start is called before the first frame update
     void Start()
@@ -15,7 +15,7 @@ public class DestroyByContact : MonoBehaviour
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
         if (gameControllerObject != null)
         {
-            gameController = gameControllerObject.GetComponent<GameController>();
+            gameController = gameControllerObject.GetComponent<GameManager>();
         }
         if (gameController == null)
         {
@@ -46,6 +46,6 @@ public class DestroyByContact : MonoBehaviour
         }
         Destroy(other.gameObject);
         Destroy(gameObject);
-        gameController.GetComponent<GameController>().AddMoney(moneyValue);
+        gameController.GetComponent<GameManager>().AddMoney(moneyValue);
     }
 }
