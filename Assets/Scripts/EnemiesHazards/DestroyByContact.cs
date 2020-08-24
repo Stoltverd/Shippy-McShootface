@@ -9,9 +9,16 @@ public class DestroyByContact : MonoBehaviour
     public int moneyValue;
     private GameManager gameController;
 
+    [SerializeField]
+    float damage;
+
+    bool isPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
+        isPlayer = false;
+
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
         if (gameControllerObject != null)
         {
@@ -37,15 +44,18 @@ public class DestroyByContact : MonoBehaviour
         }
         if (explosion != null)
         {
-            Instantiate(explosion, GetComponent<Transform>().position, GetComponent<Transform>().rotation);
+            Instantiate(explosion, GetComponent<Transform>().position, GetComponent<Transform>().rotation);          
         }
         
         if (other.tag == "Player")
         {
-            Instantiate(playerExplosion, other.GetComponent<Transform>().position, other.GetComponent<Transform>().rotation);
+            other.GetComponent<PlayerManager>().health -= damage;
+            isPlayer = true;
         }
-        Destroy(other.gameObject);
-        Destroy(gameObject);
+
+        if (!isPlayer) other.gameObject.SetActive(false);
+
+        gameObject.SetActive(false);
         gameController.GetComponent<GameManager>().AddMoney(moneyValue);
     }
 }

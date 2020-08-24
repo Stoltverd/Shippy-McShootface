@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     //Components
     [SerializeField]
-    GameObject hazard;
+    int hazardNumber;
     [SerializeField]
     GameObject player;
     [SerializeField]
@@ -116,7 +116,24 @@ public class GameManager : MonoBehaviour
                 Quaternion spawnRotation = Quaternion.identity;
 
                 //Spawn from pool
-                pooler.SpawnFromPool("Asteroid", spawnPosition, spawnRotation);
+                int r = Random.Range(0, hazardNumber);
+
+                switch (r)
+                {
+                    case 0:
+                        pooler.SpawnFromPool("Asteroid", spawnPosition, spawnRotation);
+                        break;
+                    case 1:
+                        pooler.SpawnFromPool("Asteroid2", spawnPosition, spawnRotation);
+                        break;
+                    case 2:
+                        pooler.SpawnFromPool("Asteroid3", spawnPosition, spawnRotation);
+                        break;
+                    case 3:
+                        pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
+                        break;
+
+                }              
 
                 yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
             }

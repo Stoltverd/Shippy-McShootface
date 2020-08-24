@@ -790,13 +790,25 @@ MonoBehaviour:
   spawnParent: {fileID: 1829573187}
   pools:
   - tag: Asteroid
-    prefab: {fileID: 4953037714795702444, guid: dd75edd49e3e72340868105ad770edd6,
+    prefab: {fileID: 7966741848335012601, guid: 021920356e1e28940be9c47ece1e6f7a,
       type: 3}
     size: 10
   - tag: Bullet
     prefab: {fileID: 1537200874452840178, guid: a48ca3c65e71c3e4fbe0903cc92402da,
       type: 3}
     size: 50
+  - tag: Asteroid2
+    prefab: {fileID: 7966741848335012601, guid: b589b2596b0b4eb4f9bae864060aef7a,
+      type: 3}
+    size: 10
+  - tag: Asteroid3
+    prefab: {fileID: 7966741848335012601, guid: bc86960ec30020e49a29cde3cca3c85d,
+      type: 3}
+    size: 10
+  - tag: Enemy
+    prefab: {fileID: 3622120967821752626, guid: 45f0885dbec460443a6bb504824976ca,
+      type: 3}
+    size: 10
 --- !u!1 &942885401
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,10 +1085,11 @@ MonoBehaviour:
   waveWait: 4
   gameOverUI: {fileID: 704988769}
   inGameUI: {fileID: 290645593}
-  hazard: {fileID: 4953037714795702444, guid: dd75edd49e3e72340868105ad770edd6, type: 3}
+  hazardNumber: 2
   player: {fileID: 688341357}
   playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 3}
   playerHealth: {fileID: 767350128}
+  moneyText: {fileID: 0}
 --- !u!4 &961576640
 Transform:
   m_ObjectHideFlags: 0
