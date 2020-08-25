@@ -10,12 +10,26 @@ public class PlayerManager : MonoBehaviour
 
     //Variables
     public float health;
+    float previousHealth;
 
     //Components
+    [SerializeField]
+    public Animator animator;
 
 
-    // Update is called once per frame
+    private void Start()
+    {
+        previousHealth = health;
+        animator = this.GetComponent<Animator>();
+    }
     void Update()
     {
+        previousHealth = health;
+    }
+
+    public void Damaged()
+    {
+         print("Damaged");
+        animator.SetTrigger("isHit");
     }
 }

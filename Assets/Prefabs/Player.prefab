@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  tilt: 4
+  tilt: 10
   boundary:
     xMin: -6
     xMax: 6
@@ -233,7 +233,7 @@ MonoBehaviour:
     zMax: 8
   shot: {fileID: 1537200874452840178, guid: a48ca3c65e71c3e4fbe0903cc92402da, type: 3}
   shotSpawn: {fileID: 487768899805904563}
-  fireRate: 0.25
+  fireRate: 3
 --- !u!1 &487768899805904562
 GameObject:
   m_ObjectHideFlags: 0

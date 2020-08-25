@@ -48,7 +48,16 @@ public class DestroyByContact : MonoBehaviour
         
         if (other.tag == "Player")
         {
-            other.GetComponent<PlayerManager>().health -= damage;
+            if (other.GetComponent<PlayerManager>().animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
+            {
+                print("is invulnerable");
+            }
+            else
+            {
+                other.GetComponent<PlayerManager>().health -= damage;
+                other.GetComponent<PlayerManager>().Damaged();
+            }
+           
             isPlayer = true;
         }
 

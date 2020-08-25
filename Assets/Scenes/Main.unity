@@ -384,11 +384,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d9808401c68af274a8edfbed3d1b53c7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.0016076411
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d9808401c68af274a8edfbed3d1b53c7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.0010527365
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d9808401c68af274a8edfbed3d1b53c7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -495,7 +495,7 @@ MonoBehaviour:
     zMax: 8
   shot: {fileID: 1537200874452840178, guid: a48ca3c65e71c3e4fbe0903cc92402da, type: 3}
   shotSpawn: {fileID: 2072169823}
-  fireRate: 0.25
+  fireRate: 0.3
 --- !u!82 &688341364
 AudioSource:
   m_ObjectHideFlags: 0
@@ -606,6 +606,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverUI: {fileID: 704988769}
   health: 100
+  animator: {fileID: 0}
+--- !u!95 &688341366
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688341357}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e4e8727a2eb03ce4bafe2597d04473ae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &704988769
 GameObject:
   m_ObjectHideFlags: 0
