@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
     GameObject playerExplosion = default;
     [SerializeField]
     Slider playerHealth = default;
+    [SerializeField]
+    GameObject healthText;
 
     //MergeChanges
     public GameObject moneyText;
@@ -81,6 +83,7 @@ public class GameManager : MonoBehaviour
                 player.SetActive(false);
                 gameOverUI.SetActive(true);
                 inGameUI.SetActive(false);
+                healthText.GetComponent<Text>().text = "" + player.GetComponent<PlayerManager>().health;
             }
             gameOver = true;         
         }

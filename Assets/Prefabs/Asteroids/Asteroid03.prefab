@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 7966741848335012601}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.4247086, y: 17.826172, z: 9.233625}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.55058, y: 0.55058, z: 0.55058}
   m_Children:
   - {fileID: 7300720311036423741}
   m_Father: {fileID: 0}
@@ -92,7 +92,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 100004, guid: 2857e183f4cd3df4e9096e5b578bd32f, type: 3}
-  playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 3}
   moneyValue: 10
   damage: 20
 --- !u!114 &7966741848335012595
