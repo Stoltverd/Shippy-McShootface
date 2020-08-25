@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateMoney()
     {
-        moneyText.GetComponent<Text>().text = "Money: " + money;
+        moneyText.GetComponent<Text>().text = ": " + money;
     }
     public void AddMoney(int newMoneyValue)
     {
