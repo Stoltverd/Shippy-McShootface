@@ -1269,7 +1269,7 @@ MonoBehaviour:
   player: {fileID: 688341357}
   playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 3}
   playerHealth: {fileID: 767350128}
-  healthText: {fileID: 0}
+  healthText: {fileID: 1952112290}
   moneyText: {fileID: 899757338}
 --- !u!4 &961576640
 Transform:

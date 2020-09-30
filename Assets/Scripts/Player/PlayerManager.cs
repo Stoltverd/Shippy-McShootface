@@ -29,7 +29,6 @@ public class PlayerManager : MonoBehaviour
 
     public void Damaged()
     {
-         print("Damaged");
         animator.SetTrigger("isHit");
     }
 }
