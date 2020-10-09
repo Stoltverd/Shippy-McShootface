@@ -71,8 +71,8 @@ public class GameManager : MonoBehaviour
     }
 
     private void PlayerHealthUpdate()
-    {
-        if (player.GetComponent<PlayerManager>().health <= 0)
+    { // if(player.GetComponent<PlayerManager>().health <= 0)
+        if (PlayerManager.health <= 0)
         {
             if (gameOver == false)
             {
@@ -83,8 +83,10 @@ public class GameManager : MonoBehaviour
             }
             gameOver = true;         
         }
-        player.GetComponent<PlayerManager>().health = Mathf.Clamp(player.GetComponent<PlayerManager>().health, 0, 100);
-        playerHealth.value = player.GetComponent<PlayerManager>().health;
+        PlayerManager.health = Mathf.Clamp(PlayerManager.health, 0, 100);
+        playerHealth.value = PlayerManager.health;
+        /*player.GetComponent<PlayerManager>().health = Mathf.Clamp(player.GetComponent<PlayerManager>().health, 0, 100);
+        playerHealth.value = player.GetComponent<PlayerManager>().health;*/
     }
     private void RestartUpdate()
     {

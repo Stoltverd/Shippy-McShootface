@@ -9,10 +9,13 @@ public class PlayerManager : MonoBehaviour
     private GameObject gameOverUI;
 
     //Variables
-    public float health, speed, fuel;
+    static public float health, speed, fuel;
     public int misiles;
 
-
+    private void Start()
+    {
+        speed = 11;
+    }
     //Components
 
 

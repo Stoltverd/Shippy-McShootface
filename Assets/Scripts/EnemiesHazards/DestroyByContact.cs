@@ -48,7 +48,8 @@ public class DestroyByContact : MonoBehaviour
         
         if (other.tag == "Player")
         {
-            other.GetComponent<PlayerManager>().health -= damage;
+            PlayerManager.health = -damage;
+           // other.GetComponent<PlayerManager>().health -= damage;
             isPlayer = true;
         }
 

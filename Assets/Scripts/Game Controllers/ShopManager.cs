@@ -8,7 +8,7 @@ public class ShopManager : MonoBehaviour
     public GameObject TiendaUI;
 
  
-    public void comprarVida()
+    static public void comprarVida()
     {
         PlayerManager.health++;   
     }

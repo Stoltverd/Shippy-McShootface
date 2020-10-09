@@ -14,8 +14,7 @@ public class Boundary
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-    PlayerManager player;
-    GameObject obPlayer;
+    
     private float speed;
     public float tilt;
     public Boundary boundary;
@@ -28,14 +27,12 @@ public class PlayerMovement : MonoBehaviour
     private Pooler pooler;
 
     private void Awake()
-    {
-        obPlayer = GameObject.FindGameObjectWithTag("Player");
-        player = obPlayer.GetComponent<PlayerManager>();
+    {            
         pooler = Pooler.Instance;
     }
     void Start()
     {
-        player.speed = speed;   
+        PlayerManager.speed = speed;   
             
     }
 
