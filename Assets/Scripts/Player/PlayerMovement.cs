@@ -4,6 +4,7 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using UnityEngine;
 
+
 [System.Serializable]
 public class Boundary
 {
@@ -13,7 +14,9 @@ public class Boundary
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float speed;
+    PlayerManager player;
+    GameObject obPlayer;
+    private float speed;
     public float tilt;
     public Boundary boundary;
 
@@ -23,11 +26,17 @@ public class PlayerMovement : MonoBehaviour
     private float nextFire;
 
     private Pooler pooler;
-    
 
+    private void Awake()
+    {
+        obPlayer = GameObject.FindGameObjectWithTag("Player");
+        player = obPlayer.GetComponent<PlayerManager>();
+        pooler = Pooler.Instance;
+    }
     void Start()
     {
-        pooler = Pooler.Instance;
+        player.speed = speed;   
+            
     }
 
     private void FixedUpdate()//se ejecuta antes de cada step de la fisica 
