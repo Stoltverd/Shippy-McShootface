@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class PlayerManager : MonoBehaviour, IHittable
 {
     //UI
     [SerializeField]
@@ -10,7 +10,8 @@ public class PlayerManager : MonoBehaviour
 
     //Variables
     public float health;
-    float previousHealth;
+    [SerializeField]
+    public float damage;
 
     //Components
     [SerializeField]
@@ -19,16 +20,19 @@ public class PlayerManager : MonoBehaviour
 
     private void Start()
     {
-        previousHealth = health;
         animator = this.GetComponent<Animator>();
     }
-    void Update()
-    {
-        previousHealth = health;
-    }
 
-    public void Damaged()
+    public void OnHit(float damage)
     {
-        animator.SetTrigger("isHit");
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Damaged"))
+        {
+            print("is invulnerable");
+        }
+        else
+        {
+            health -= damage;
+            animator.SetTrigger("isHit");
+        }
     }
 }

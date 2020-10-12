@@ -41,7 +41,6 @@ GameObject:
   - component: {fileID: 3622120967821752629}
   - component: {fileID: 3622120967821752628}
   - component: {fileID: 3622120967821752627}
-  - component: {fileID: 3622120967821752630}
   - component: {fileID: 3622120967821752631}
   - component: {fileID: 3622120967821752633}
   - component: {fileID: 3622120967821752634}
@@ -99,21 +98,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.85
   m_Center: {x: 0, y: 0, z: -0.3}
---- !u!114 &3622120967821752630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3622120967821752626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12a076b06b90c1644bcd719d28be9fb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosion: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 3}
-  moneyValue: 20
-  damage: 40
 --- !u!114 &3622120967821752631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +150,10 @@ MonoBehaviour:
     xMax: 6
     zMin: -20
     zMax: 20
+  health: 15
+  damage: 20
+  value: 10
+  enemyExplosion: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 3}
 --- !u!82 &3622120967821752632
 AudioSource:
   m_ObjectHideFlags: 0

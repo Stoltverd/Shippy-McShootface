@@ -12,7 +12,6 @@ public class Boundary
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
     public float speed;
     public float tilt;
     public Boundary boundary;
@@ -44,13 +43,12 @@ public class PlayerMovement : MonoBehaviour
             );
         GetComponent<Rigidbody>().rotation = Quaternion.Euler(0.0f,0.0f,GetComponent<Rigidbody>().velocity.x * -tilt);
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetButton("Fire1")&& Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
-            //GameObject clone = 
             pooler.SpawnFromPool("Bullet", shotSpawn.position, shotSpawn.rotation); //as GameObject;
             GetComponent<AudioSource>().Play();
         }
