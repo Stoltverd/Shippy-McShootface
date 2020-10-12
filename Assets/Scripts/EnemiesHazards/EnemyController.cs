@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemycontroller : MonoBehaviour, IHittable
+public class EnemyController : MonoBehaviour, IHittable
 {
     AudioSource audioSource;
 

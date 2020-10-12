@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 3622120967821752634}
   - component: {fileID: 3622120967821752632}
   - component: {fileID: 8466908632261439348}
-  - component: {fileID: 6692113024706074349}
+  - component: {fileID: 4458965033939998679}
   m_Layer: 0
   m_Name: Enemy Ship01
   m_TagString: Enemy
@@ -266,7 +266,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6692113024706074349
+--- !u!114 &4458965033939998679
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -281,7 +281,7 @@ MonoBehaviour:
   health: 15
   damage: 10
   value: 10
-  hitColor: {r: 1, g: 0.10849059, b: 0.10849059, a: 1}
+  hitColor: {r: 1, g: 0.25943398, b: 0.25943398, a: 1}
   enemyExplosion: {fileID: 100012, guid: 384371afbb4354cc9a3fc68eab303756, type: 3}
   damaged: {fileID: 8300000, guid: 678127c95e0d7864ba983f1adb44a726, type: 3}
 --- !u!1001 &3622120967021529821
