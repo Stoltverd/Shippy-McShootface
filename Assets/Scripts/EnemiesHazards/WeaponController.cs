@@ -10,6 +10,8 @@ public class WeaponController : MonoBehaviour
     public float delay;
 
     private AudioSource audioSource;
+    [SerializeField]
+    AudioClip shoot;
     private Pooler pooler;
 
     // Start is called before the first frame update
@@ -35,6 +37,6 @@ public class WeaponController : MonoBehaviour
     {
         
         pooler.SpawnFromPool("Enemy Bolt", shotSpawn.position, shotSpawn.rotation); //as GameObject;
-        audioSource.Play();
+        audioSource.PlayOneShot(shoot, 1.0f);
     }
 }
