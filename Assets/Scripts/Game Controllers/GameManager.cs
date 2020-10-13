@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 
     //MergeChanges
     public GameObject moneyText;
-    private int money;
+    public int money;
 
     void Start()
     {

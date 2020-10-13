@@ -14,7 +14,7 @@ public class PlayerData
     //Constructor
     public PlayerData(GameManager gameManager,PlayerManager playerManager, PlayerMovement playerMovement)
     {
-        money = gameManager.Money;
+        money = gameManager.money;
         health = playerManager.health;
 
         position = new float[3];
