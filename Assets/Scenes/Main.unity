@@ -1272,6 +1272,11 @@ MonoBehaviour:
   playerHealth: {fileID: 767350128}
   healthText: {fileID: 1952112290}
   moneyText: {fileID: 899757338}
+  waves:
+  - enemies: 00000000000000000000000000000000
+  - enemies: 
+  - enemies: 
+  - enemies: 
 --- !u!4 &961576640
 Transform:
   m_ObjectHideFlags: 0

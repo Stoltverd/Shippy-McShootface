@@ -5,6 +5,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public enum EnemyType
+{
+    Asteroid1,
+    Asteroid2,
+    Asteroid3,
+    Enemy1,
+}
+
+[System.Serializable]
+public class Wave
+{
+    public EnemyType[] enemies;
+}
+
 public class GameManager : MonoBehaviour
 {
     //Make this a singleton
@@ -108,6 +122,9 @@ public class GameManager : MonoBehaviour
         money += newMoneyValue;
         UpdateMoney();
     }
+
+    [SerializeField]
+    Wave[] waves;
 
     IEnumerator SpawnWaves()
     {
