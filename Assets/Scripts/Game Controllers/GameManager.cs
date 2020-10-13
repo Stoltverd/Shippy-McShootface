@@ -11,6 +11,7 @@ public enum EnemyType
     Asteroid2,
     Asteroid3,
     Enemy1,
+    None,
 }
 
 [System.Serializable]
@@ -141,6 +142,8 @@ public class GameManager : MonoBehaviour
 
                 switch (et)
                 {
+                    case EnemyType.None:
+                        break;
                     case EnemyType.Asteroid1:
                         pooler.SpawnFromPool("Asteroid", spawnPosition, spawnRotation);
                         break;
