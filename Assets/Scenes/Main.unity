@@ -1272,9 +1272,10 @@ MonoBehaviour:
   playerHealth: {fileID: 767350128}
   healthText: {fileID: 1952112290}
   moneyText: {fileID: 899757338}
+  money: 0
   waves:
   - enemies: 00000000000000000000000000000000
-  - enemies: 
+  - enemies: 03000000030000000300000003000000030000000300000003000000
   - enemies: 
   - enemies: 
 --- !u!4 &961576640

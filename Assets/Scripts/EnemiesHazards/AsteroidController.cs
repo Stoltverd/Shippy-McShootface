@@ -6,6 +6,7 @@ public class AsteroidController : MonoBehaviour, IHittable
 {
     public float tumble;
     [SerializeField]
+    private float maxHealth;
     private float health;
     [SerializeField]
     private int value;
@@ -18,6 +19,7 @@ public class AsteroidController : MonoBehaviour, IHittable
 
     void Start()
     {
+        health = maxHealth;
         GetComponent<Rigidbody>().angularVelocity = Random.insideUnitSphere * tumble;
     }
 
@@ -47,6 +49,7 @@ public class AsteroidController : MonoBehaviour, IHittable
     void Die()
     {       
         Instantiate(explosion, GetComponent<Transform>().position, GetComponent<Transform>().rotation);
+        health = maxHealth;
         gameObject.SetActive(false);
     }
 

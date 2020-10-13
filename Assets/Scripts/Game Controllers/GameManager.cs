@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
 
         pooler = Pooler.Instance;
 
-        StartCoroutine (SpawnWaves());
+        StartCoroutine (WaveSpawn());
 
 
         money = 0;
@@ -125,6 +125,42 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     Wave[] waves;
+
+    IEnumerator WaveSpawn()
+    {
+        yield return new WaitForSeconds(startWait); //Esperamos antes de tirarle cosas al principio
+        foreach(Wave wave in waves)
+        {
+            for (int i = 0; i < wave.enemies.Length; i++)
+            {
+                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                Quaternion spawnRotation = Quaternion.identity;
+
+                //Spawn from pool
+                EnemyType et = wave.enemies[i];
+
+                switch (et)
+                {
+                    case EnemyType.Asteroid1:
+                        pooler.SpawnFromPool("Asteroid", spawnPosition, spawnRotation);
+                        break;
+                    case EnemyType.Asteroid2:
+                        pooler.SpawnFromPool("Asteroid2", spawnPosition, spawnRotation);
+                        break;
+                    case EnemyType.Asteroid3:
+                        pooler.SpawnFromPool("Asteroid3", spawnPosition, spawnRotation);
+                        break;
+                    case EnemyType.Enemy1:
+                        pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
+                        break;
+
+                }
+
+                yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
+            }
+            yield return new WaitForSeconds(waveWait);
+        }
+    }
 
     IEnumerator SpawnWaves()
     {

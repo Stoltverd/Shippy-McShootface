@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d326342e38e9c274f9ab6ebc80df1af6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 15
+  maxHealth: 15
   damage: 10
   value: 10
   hitColor: {r: 1, g: 0.25943398, b: 0.25943398, a: 1}
