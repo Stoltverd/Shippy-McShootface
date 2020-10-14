@@ -1,8 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+public enum EnemyType
+{
+    Asteroid1,
+    Asteroid2,
+    Asteroid3,
+    Enemy1,
+    None,
+}
+
+[System.Serializable]
+public class Wave
+{
+    public EnemyType[] enemies;
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -44,10 +60,12 @@ public class GameManager : MonoBehaviour
     GameObject playerExplosion = default;
     [SerializeField]
     Slider playerHealth = default;
+    [SerializeField]
+    GameObject healthText;
 
     //MergeChanges
     public GameObject moneyText;
-    private int money;
+    public int money;
 
     void Start()
     {
@@ -57,7 +75,7 @@ public class GameManager : MonoBehaviour
 
         pooler = Pooler.Instance;
 
-        StartCoroutine (SpawnWaves());
+        StartCoroutine (WaveSpawn());
 
 
         money = 0;
@@ -80,6 +98,7 @@ public class GameManager : MonoBehaviour
                 player.SetActive(false);
                 gameOverUI.SetActive(true);
                 inGameUI.SetActive(false);
+                healthText.GetComponent<Text>().text = "" + player.GetComponent<PlayerManager>().health;
             }
             gameOver = true;         
         }
@@ -99,12 +118,53 @@ public class GameManager : MonoBehaviour
 
     void UpdateMoney()
     {
-        moneyText.GetComponent<Text>().text = "Money: " + money;
+        moneyText.GetComponent<Text>().text = ": " + money;
     }
     public void AddMoney(int newMoneyValue)
     {
         money += newMoneyValue;
         UpdateMoney();
+    }
+
+    [SerializeField]
+    Wave[] waves;
+
+    IEnumerator WaveSpawn()
+    {
+        yield return new WaitForSeconds(startWait); //Esperamos antes de tirarle cosas al principio
+        foreach(Wave wave in waves)
+        {
+            for (int i = 0; i < wave.enemies.Length; i++)
+            {
+                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                Quaternion spawnRotation = Quaternion.identity;
+
+                //Spawn from pool
+                EnemyType et = wave.enemies[i];
+
+                switch (et)
+                {
+                    case EnemyType.None:
+                        break;
+                    case EnemyType.Asteroid1:
+                        pooler.SpawnFromPool("Asteroid", spawnPosition, spawnRotation);
+                        break;
+                    case EnemyType.Asteroid2:
+                        pooler.SpawnFromPool("Asteroid2", spawnPosition, spawnRotation);
+                        break;
+                    case EnemyType.Asteroid3:
+                        pooler.SpawnFromPool("Asteroid3", spawnPosition, spawnRotation);
+                        break;
+                    case EnemyType.Enemy1:
+                        pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
+                        break;
+
+                }
+
+                yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
+            }
+            yield return new WaitForSeconds(waveWait);
+        }
     }
 
     IEnumerator SpawnWaves()

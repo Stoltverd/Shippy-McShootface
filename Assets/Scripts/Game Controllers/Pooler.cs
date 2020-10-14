@@ -33,14 +33,17 @@ public class Pooler : MonoBehaviour
         {
             Queue<GameObject> objPool = new Queue<GameObject>();
 
+            GameObject folder = new GameObject();
+            folder.transform.SetParent(spawnParent.transform);
+            folder.name = pool.tag;
             //Instantiate objects in pool
             for (int i = 0; i < pool.size; i++)
-            {
+            {               
                 GameObject obj = Instantiate(pool.prefab);
                 obj.SetActive(false);
                 objPool.Enqueue(obj);
 
-                obj.transform.SetParent(spawnParent.transform);
+                obj.transform.SetParent(folder.transform);
             }
             // Add pool to dictionary
             poolDict.Add(pool.tag, objPool);

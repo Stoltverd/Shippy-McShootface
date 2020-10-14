@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 6925206892813695616}
   - component: {fileID: 1047232467481058665}
   - component: {fileID: 9012307265337997419}
-  - component: {fileID: 3957379350732717606}
+  - component: {fileID: -3165012660412615764}
   m_Layer: 0
   m_Name: Bolt Enemy
   m_TagString: Enemy
@@ -108,7 +108,7 @@ Transform:
   m_GameObject: {fileID: 2575587847999181015}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 1, z: 1}
   m_Children:
   - {fileID: 3109286006741743119}
   m_Father: {fileID: 0}
@@ -140,8 +140,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.03
-  m_Height: 0.5
+  m_Radius: 0.04
+  m_Height: 0.62
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &9012307265337997419
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
---- !u!114 &3957379350732717606
+--- !u!114 &-3165012660412615764
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,10 +166,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2575587847999181015}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12a076b06b90c1644bcd719d28be9fb4, type: 3}
+  m_Script: {fileID: 11500000, guid: d0c5cf2d09347fc41b54d9be6fd39cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosion: {fileID: 0}
-  playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 3}
-  moneyValue: 0
-  damage: 30
+  damage: 20

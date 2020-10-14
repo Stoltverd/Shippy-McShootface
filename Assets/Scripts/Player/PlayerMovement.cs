@@ -4,7 +4,6 @@ using System.Xml.Schema;
 using System.Xml.Serialization;
 using UnityEngine;
 
-
 [System.Serializable]
 public class Boundary
 {
@@ -13,9 +12,7 @@ public class Boundary
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    
-    private float speed;
+    public float speed;
     public float tilt;
     public Boundary boundary;
 
@@ -25,15 +22,11 @@ public class PlayerMovement : MonoBehaviour
     private float nextFire;
 
     private Pooler pooler;
+    
 
-    private void Awake()
-    {            
-        pooler = Pooler.Instance;
-    }
     void Start()
     {
-        PlayerManager.speed = speed;   
-            
+        pooler = Pooler.Instance;
     }
 
     private void FixedUpdate()//se ejecuta antes de cada step de la fisica 
@@ -50,13 +43,12 @@ public class PlayerMovement : MonoBehaviour
             );
         GetComponent<Rigidbody>().rotation = Quaternion.Euler(0.0f,0.0f,GetComponent<Rigidbody>().velocity.x * -tilt);
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (Input.GetButton("Fire1")&& Time.time > nextFire)
         {
             nextFire = Time.time + fireRate;
-            //GameObject clone = 
             pooler.SpawnFromPool("Bullet", shotSpawn.position, shotSpawn.rotation); //as GameObject;
             GetComponent<AudioSource>().Play();
         }

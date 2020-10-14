@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EvasiveManeuver : MonoBehaviour
+public class DodgeManouver : MonoBehaviour
 {
     public float dodge;
     public float smoothing;
@@ -15,18 +15,13 @@ public class EvasiveManeuver : MonoBehaviour
     private float currentSpeed;
     private float targetManeuver;
     private Rigidbody rb;
-    // Start is called before the first frame update
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         currentSpeed = rb.velocity.z;
         StartCoroutine(Evade());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     IEnumerator Evade()
@@ -53,4 +48,5 @@ public class EvasiveManeuver : MonoBehaviour
             );
         rb.rotation = Quaternion.Euler(0, 0, rb.velocity.x * -tilt);
     }
+
 }
