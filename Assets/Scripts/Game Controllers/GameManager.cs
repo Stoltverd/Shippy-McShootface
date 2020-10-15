@@ -86,6 +86,16 @@ public class GameManager : MonoBehaviour
     {
         PlayerHealthUpdate();
         RestartUpdate();
+        #region TEST SAVE SYSTEM
+        if (Input.GetKeyDown("s"))
+        {
+            SavePlayer();
+        }
+        if (Input.GetKeyDown("l"))
+        {
+            LoadPlayer();
+        }
+        #endregion
     }
 
     private void PlayerHealthUpdate()
@@ -199,5 +209,22 @@ public class GameManager : MonoBehaviour
             }
             yield return new WaitForSeconds(waveWait);
         }
+    }
+    public void SavePlayer()
+    {
+        SaveSystem.SavePlayer(this, player.GetComponent<PlayerManager>(), player.GetComponent<PlayerMovement>());
+    }
+    public void LoadPlayer()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+
+        this.money = data.money;
+        player.GetComponent<PlayerManager>().health = data.health;
+        //Load position
+        Vector3 position;
+        position.x = data.position[0];
+        position.y = data.position[1];
+        position.z = data.position[2];
+        player.transform.position = position;
     }
 }
