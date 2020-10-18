@@ -10,7 +10,11 @@ public enum EnemyType
     Asteroid1,
     Asteroid2,
     Asteroid3,
+    Enemy,
     Enemy1,
+    Enemy2,
+    Enemy3,
+    Enemy4,
     None,
 }
 
@@ -70,7 +74,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-       gameOver = false;
+        gameOver = false;
         currentScene = SceneManager.GetActiveScene();
 
         pooler = Pooler.Instance;
@@ -153,7 +157,7 @@ public class GameManager : MonoBehaviour
                     case EnemyType.Asteroid3:
                         pooler.SpawnFromPool("Asteroid3", spawnPosition, spawnRotation);
                         break;
-                    case EnemyType.Enemy1:
+                    case EnemyType.Enemy:
                         pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
                         break;
 
