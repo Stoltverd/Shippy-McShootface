@@ -140,6 +140,12 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     Wave[] waves;
+    [SerializeField]
+    GameObject enemy1;
+    [SerializeField]
+    GameObject enemy2;
+    [SerializeField]
+    GameObject enemy3;
 
     IEnumerator WaveSpawn()
     {
@@ -170,44 +176,22 @@ public class GameManager : MonoBehaviour
                     case EnemyType.Enemy:
                         pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
                         break;
-
+                    case EnemyType.Enemy1:
+                        //pooler.SpawnFromPool("Enemy1", spawnPosition, spawnRotation);
+                        Instantiate(enemy1, spawnPosition, spawnRotation);
+                        break;
+                    case EnemyType.Enemy2:
+                        //pooler.SpawnFromPool("Enemy2", spawnPosition, spawnRotation);
+                        Instantiate(enemy2, spawnPosition, spawnRotation);
+                        break;
+                    case EnemyType.Enemy3:
+                        //pooler.SpawnFromPool("Enemy3", spawnPosition, spawnRotation);
+                        Instantiate(enemy3, spawnPosition, spawnRotation);
+                        break;
+                    case EnemyType.Enemy4:
+                        pooler.SpawnFromPool("Enemy4", spawnPosition, spawnRotation);
+                        break;
                 }
-
-                yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
-            }
-            yield return new WaitForSeconds(waveWait);
-        }
-    }
-
-    IEnumerator SpawnWaves()
-    {
-        yield return new WaitForSeconds(startWait); //Esperamos antes de tirarle cosas al principio
-        while (true)
-        {
-            for (int i = 0; i < hazardCount; i++)
-            {
-                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
-                Quaternion spawnRotation = Quaternion.identity;
-
-                //Spawn from pool
-                int r = Random.Range(0, hazardNumber);
-
-                switch (r)
-                {
-                    case 0:
-                        pooler.SpawnFromPool("Asteroid", spawnPosition, spawnRotation);
-                        break;
-                    case 1:
-                        pooler.SpawnFromPool("Asteroid2", spawnPosition, spawnRotation);
-                        break;
-                    case 2:
-                        pooler.SpawnFromPool("Asteroid3", spawnPosition, spawnRotation);
-                        break;
-                    case 3:
-                        pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
-                        break;
-
-                }              
 
                 yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
             }
