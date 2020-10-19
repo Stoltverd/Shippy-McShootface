@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
 
     Pooler pooler;
 
+    PlayerManager player;
+
     //UI
     [SerializeField]
     private GameObject gameOverUI = default;
@@ -54,8 +56,8 @@ public class GameManager : MonoBehaviour
     //Components
     [SerializeField]
     int hazardNumber = default;
-    [SerializeField]
-    GameObject player = default;
+   // [SerializeField]
+    //GameObject player = default;
     [SerializeField]
     GameObject playerExplosion = default;
     [SerializeField]
@@ -69,8 +71,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
-       gameOver = false;
+        player = PlayerManager.Instance;
+        gameOver = false;
         currentScene = SceneManager.GetActiveScene();
 
         pooler = Pooler.Instance;
@@ -99,23 +101,23 @@ public class GameManager : MonoBehaviour
     }
 
     private void PlayerHealthUpdate()
-    { // if(player.GetComponent<PlayerManager>().health <= 0)
-        if (PlayerManager.health <= 0)
+    {    if(player.health <= 0)
+       // if (PlayerManager.health <= 0)
         {
             if (gameOver == false)
             {
                 Instantiate(playerExplosion, player.transform.position, player.transform.rotation);
-                player.SetActive(false);
+                player.gameObject.SetActive(false);
                 gameOverUI.SetActive(true);
                 inGameUI.SetActive(false);
-                healthText.GetComponent<Text>().text = "" + player.GetComponent<PlayerManager>().health;
+               healthText.GetComponent<Text>().text = "" + player.health;
             }
             gameOver = true;         
         }
-        PlayerManager.health = Mathf.Clamp(PlayerManager.health, 0, 100);
-        playerHealth.value = PlayerManager.health;
-        /*player.GetComponent<PlayerManager>().health = Mathf.Clamp(player.GetComponent<PlayerManager>().health, 0, 100);
-        playerHealth.value = player.GetComponent<PlayerManager>().health;*/
+        //PlayerManager.health = Mathf.Clamp(PlayerManager.health, 0, 100);
+        //playerHealth.value = PlayerManager.health;
+        player.health = Mathf.Clamp(player.health, 0, player.maxHealth);
+        playerHealth.value = player.health;
     }
     private void RestartUpdate()
     {
@@ -221,7 +223,7 @@ public class GameManager : MonoBehaviour
         PlayerData data = SaveSystem.LoadPlayer();
 
         this.money = data.money;
-        player.GetComponent<PlayerManager>().health = data.health;
+      //  player.GetComponent<PlayerManager>().health = data.health;
         //Load position
         Vector3 position;
         position.x = data.position[0];

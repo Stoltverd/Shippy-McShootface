@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour, IHittable
     {
         if (other.tag == "Player")
         {
-            other.GetComponent<PlayerManager>().OnHit(damage);
+            //other.GetComponent<PlayerManager>().OnHit(damage);
             Die();
         }
     }
