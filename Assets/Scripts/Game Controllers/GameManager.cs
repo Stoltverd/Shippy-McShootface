@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Slider playerHealth = default;
     [SerializeField]
+    public byte misiles;
+    [SerializeField]
     GameObject healthText;
 
     //MergeChanges

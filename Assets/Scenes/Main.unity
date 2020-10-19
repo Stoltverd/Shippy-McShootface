@@ -1725,6 +1725,10 @@ MonoBehaviour:
     prefab: {fileID: 5823866412944892001, guid: cfe0cd63cc67a834a89d7fc674a6f836,
       type: 3}
     size: 10
+  - tag: Missile
+    prefab: {fileID: 5399818707745684630, guid: 561cf42db1ea45445ae15bf49a8a8b40,
+      type: 3}
+    size: 10
 --- !u!1 &899757338
 GameObject:
   m_ObjectHideFlags: 0
@@ -2173,6 +2177,7 @@ MonoBehaviour:
   player: {fileID: 688341357}
   playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 3}
   playerHealth: {fileID: 767350128}
+  misiles: 3
   healthText: {fileID: 1952112290}
   moneyText: {fileID: 899757338}
   money: 0
