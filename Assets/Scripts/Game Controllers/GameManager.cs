@@ -10,11 +10,7 @@ public enum EnemyType
     Asteroid1,
     Asteroid2,
     Asteroid3,
-    Enemy,
     Enemy1,
-    Enemy2,
-    Enemy3,
-    Enemy4,
     None,
 }
 
@@ -49,6 +45,8 @@ public class GameManager : MonoBehaviour
 
     Pooler pooler;
 
+    PlayerManager player;
+
     //UI
     [SerializeField]
     private GameObject gameOverUI = default;
@@ -58,8 +56,8 @@ public class GameManager : MonoBehaviour
     //Components
     [SerializeField]
     int hazardNumber = default;
-    [SerializeField]
-    GameObject player = default;
+   // [SerializeField]
+    //GameObject player = default;
     [SerializeField]
     GameObject playerExplosion = default;
     [SerializeField]
@@ -73,7 +71,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        player = PlayerManager.Instance;
         gameOver = false;
         currentScene = SceneManager.GetActiveScene();
 
@@ -103,21 +101,23 @@ public class GameManager : MonoBehaviour
     }
 
     private void PlayerHealthUpdate()
-    {
-        if (player.GetComponent<PlayerManager>().health <= 0)
+    {    if(player.health <= 0)
+       // if (PlayerManager.health <= 0)
         {
             if (gameOver == false)
             {
                 Instantiate(playerExplosion, player.transform.position, player.transform.rotation);
-                player.SetActive(false);
+                player.gameObject.SetActive(false);
                 gameOverUI.SetActive(true);
                 inGameUI.SetActive(false);
-                healthText.GetComponent<Text>().text = "" + player.GetComponent<PlayerManager>().health;
+               healthText.GetComponent<Text>().text = "" + player.health;
             }
             gameOver = true;         
         }
-        player.GetComponent<PlayerManager>().health = Mathf.Clamp(player.GetComponent<PlayerManager>().health, 0, 100);
-        playerHealth.value = player.GetComponent<PlayerManager>().health;
+        //PlayerManager.health = Mathf.Clamp(PlayerManager.health, 0, 100);
+        //playerHealth.value = PlayerManager.health;
+        player.health = Mathf.Clamp(player.health, 0, player.maxHealth);
+        playerHealth.value = player.health;
     }
     private void RestartUpdate()
     {
@@ -140,12 +140,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     Wave[] waves;
-    [SerializeField]
-    GameObject enemy1;
-    [SerializeField]
-    GameObject enemy2;
-    [SerializeField]
-    GameObject enemy3;
 
     IEnumerator WaveSpawn()
     {
@@ -173,25 +167,47 @@ public class GameManager : MonoBehaviour
                     case EnemyType.Asteroid3:
                         pooler.SpawnFromPool("Asteroid3", spawnPosition, spawnRotation);
                         break;
-                    case EnemyType.Enemy:
+                    case EnemyType.Enemy1:
                         pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
                         break;
-                    case EnemyType.Enemy1:
-                        //pooler.SpawnFromPool("Enemy1", spawnPosition, spawnRotation);
-                        Instantiate(enemy1, spawnPosition, spawnRotation);
-                        break;
-                    case EnemyType.Enemy2:
-                        //pooler.SpawnFromPool("Enemy2", spawnPosition, spawnRotation);
-                        Instantiate(enemy2, spawnPosition, spawnRotation);
-                        break;
-                    case EnemyType.Enemy3:
-                        //pooler.SpawnFromPool("Enemy3", spawnPosition, spawnRotation);
-                        Instantiate(enemy3, spawnPosition, spawnRotation);
-                        break;
-                    case EnemyType.Enemy4:
-                        pooler.SpawnFromPool("Enemy4", spawnPosition, spawnRotation);
-                        break;
+
                 }
+
+                yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
+            }
+            yield return new WaitForSeconds(waveWait);
+        }
+    }
+
+    IEnumerator SpawnWaves()
+    {
+        yield return new WaitForSeconds(startWait); //Esperamos antes de tirarle cosas al principio
+        while (true)
+        {
+            for (int i = 0; i < hazardCount; i++)
+            {
+                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
+                Quaternion spawnRotation = Quaternion.identity;
+
+                //Spawn from pool
+                int r = Random.Range(0, hazardNumber);
+
+                switch (r)
+                {
+                    case 0:
+                        pooler.SpawnFromPool("Asteroid", spawnPosition, spawnRotation);
+                        break;
+                    case 1:
+                        pooler.SpawnFromPool("Asteroid2", spawnPosition, spawnRotation);
+                        break;
+                    case 2:
+                        pooler.SpawnFromPool("Asteroid3", spawnPosition, spawnRotation);
+                        break;
+                    case 3:
+                        pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
+                        break;
+
+                }              
 
                 yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
             }
@@ -207,7 +223,7 @@ public class GameManager : MonoBehaviour
         PlayerData data = SaveSystem.LoadPlayer();
 
         this.money = data.money;
-        player.GetComponent<PlayerManager>().health = data.health;
+      //  player.GetComponent<PlayerManager>().health = data.health;
         //Load position
         Vector3 position;
         position.x = data.position[0];
