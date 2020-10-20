@@ -12,7 +12,7 @@ public class Boundary
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed;
+    public float speed, maxSpeed;
     public float tilt;
     public Boundary boundary;
 
@@ -22,8 +22,14 @@ public class PlayerMovement : MonoBehaviour
     private float nextFire;
 
     private Pooler pooler;
-    
-
+    public static PlayerMovement Instance;
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
     void Start()
     {
         pooler = Pooler.Instance;
@@ -53,5 +59,15 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<AudioSource>().Play();
         }
         
+    }
+
+    public void addSpeed(float i)
+    {
+        if (speed < maxSpeed)
+        {
+            speed += i;
+            if (speed > maxSpeed)
+                speed = maxSpeed;
+        }
     }
 }

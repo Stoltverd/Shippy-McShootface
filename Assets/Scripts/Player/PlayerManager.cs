@@ -9,9 +9,9 @@ public class PlayerManager : MonoBehaviour, IHittable
     private GameObject gameOverUI;
 
     //Variables
+    public float speed, maxSpeed;
     public float maxHealth;
     public float health;
-    public float speed, maxSpeed;
     public int misil, maxMisil;
     
     [SerializeField]
@@ -32,6 +32,8 @@ public class PlayerManager : MonoBehaviour, IHittable
     }
     private void Start()
     {
+        speed = PlayerMovement.Instance.speed;
+        maxSpeed = PlayerMovement.Instance.maxSpeed;
         health = maxHealth;
         animator = this.GetComponent<Animator>();
     }
@@ -60,18 +62,10 @@ public class PlayerManager : MonoBehaviour, IHittable
 
        
     }
-    public void addSpeed(float i)
-    {
-        if (speed < maxSpeed)
-        {
-            speed += i;
-            if (speed > maxSpeed)
-                speed = maxSpeed;
-        }
-    }
+    
     public void addFuel(int i)
     {
-        if (speed < maxSpeed)
+        if (speed < maxSpeed)              // estructura para Fuel por cargas
         {
             speed += i;
             if (speed > maxSpeed)

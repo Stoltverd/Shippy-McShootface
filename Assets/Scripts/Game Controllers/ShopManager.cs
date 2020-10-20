@@ -45,7 +45,7 @@ public class ShopManager : MonoBehaviour
             case 2:
                 if (GameManager.Instance.money >= priceSpeed)
                 {
-                    PlayerManager.Instance.addSpeed(0.5f);
+                    PlayerMovement.Instance.addSpeed(0.5f);
                     GameManager.Instance.money -= priceSpeed;
                 }
                 else
@@ -78,9 +78,7 @@ public class ShopManager : MonoBehaviour
 
 
 
-        }
-
-        Debug.Log("vida");
+        }   
     }
     public void showShop()
     {     
