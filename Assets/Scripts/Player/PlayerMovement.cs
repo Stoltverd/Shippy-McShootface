@@ -21,12 +21,25 @@ public class PlayerMovement : MonoBehaviour
     public float fireRate;
     private float nextFire;
 
+    public float currentBoost;
+    private float boostSpeed;
+    private float normalSpeed;
+    bool canChargeBoost = true;
+    [SerializeField]
+    private float boostCooldown;
+    [SerializeField]
+    private float boostChargeSpeed;
+
     private Pooler pooler;
     
 
     void Start()
     {
         pooler = Pooler.Instance;
+
+        boostSpeed = speed * 2;
+        normalSpeed = speed;
+        currentBoost = GameManager.Instance.maxBoost;
     }
 
     private void FixedUpdate()//se ejecuta antes de cada step de la fisica 
@@ -61,5 +74,39 @@ public class PlayerMovement : MonoBehaviour
             GameManager.Instance.UpdateMissiles();
         }
 
+        //Boost
+        if (Input.GetButton("Jump") && currentBoost > 0)
+        {
+            speed = boostSpeed;
+            currentBoost -= Time.deltaTime;
+            GameManager.Instance.UpdateBoost(currentBoost);
+        }
+        else if (currentBoost <= GameManager.Instance.maxBoost)
+        {
+            ChargeBoost();
+        }
+        if (Input.GetButtonUp("Jump") || currentBoost <= 0)
+        {
+            speed = normalSpeed;
+            if (currentBoost <= 0 && canChargeBoost)
+            {
+                boostCooldown = 1;
+                canChargeBoost = false;
+            }
+        }
+    }
+
+    void ChargeBoost()
+    {
+        if (boostCooldown <= 0)
+        {
+            canChargeBoost = true;
+            currentBoost += Time.deltaTime * boostChargeSpeed;
+            GameManager.Instance.UpdateBoost(currentBoost);
+        }
+        else if (boostCooldown > 0)
+        {
+            boostCooldown -= Time.deltaTime;
+        }
     }
 }

@@ -57,15 +57,16 @@ public class GameManager : MonoBehaviour
 
     //Components
     [SerializeField]
-    int hazardNumber = default;
-    [SerializeField]
     GameObject player = default;
     [SerializeField]
     GameObject playerExplosion = default;
     [SerializeField]
     Slider playerHealth = default;
     [SerializeField]
+    Slider playerBoost = default;
+    [SerializeField]
     public byte misiles;
+    public float maxBoost;
     [SerializeField]
     GameObject healthText;
 
@@ -86,6 +87,7 @@ public class GameManager : MonoBehaviour
 
 
         money = 0;
+        playerBoost.maxValue = maxBoost;
         UpdateMoney();
         UpdateMissiles();
     }
@@ -93,7 +95,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         PlayerHealthUpdate();
-        RestartUpdate();
+        RestartUpdate();      
     }
 
     private void PlayerHealthUpdate()
@@ -135,6 +137,10 @@ public class GameManager : MonoBehaviour
     {
         money += newMoneyValue;
         UpdateMoney();
+    }
+    public void UpdateBoost(float boost)
+    {
+        playerBoost.value = boost;
     }
 
     [SerializeField]
