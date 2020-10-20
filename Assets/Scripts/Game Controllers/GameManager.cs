@@ -172,8 +172,9 @@ public class GameManager : MonoBehaviour
                         break;
 
                 }
-
+               
                 yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
+              
             }
             yield return new WaitForSeconds(waveWait);
         }
@@ -207,9 +208,10 @@ public class GameManager : MonoBehaviour
                         pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
                         break;
 
-                }              
-
+                }
+                ShopManager.Instance.showShop();
                 yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
+                ShopManager.Instance.closeShop();
             }
             yield return new WaitForSeconds(waveWait);
         }
