@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
 
     //MergeChanges
     public GameObject moneyText;
+    public GameObject missileText;
     public int money;
 
     void Start()
@@ -86,6 +87,7 @@ public class GameManager : MonoBehaviour
 
         money = 0;
         UpdateMoney();
+        UpdateMissiles();
     }
 
     void Update()
@@ -118,6 +120,11 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(currentScene.name);
         }
                
+    }
+
+    public void UpdateMissiles()
+    {
+        missileText.GetComponent<Text>().text = "x " + misiles;
     }
 
     void UpdateMoney()

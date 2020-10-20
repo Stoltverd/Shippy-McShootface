@@ -55,9 +55,10 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetButtonDown("Fire2") && GameManager.Instance.misiles > 0)
         {
-            nextFire = Time.time + fireRate;
+            nextFire = Time.time + fireRate;           
             pooler.SpawnFromPool("Missile", shotSpawn.position, shotSpawn.rotation); //as GameObject;
             GameManager.Instance.misiles--;
+            GameManager.Instance.UpdateMissiles();
         }
 
     }
