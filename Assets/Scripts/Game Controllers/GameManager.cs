@@ -10,7 +10,11 @@ public enum EnemyType
     Asteroid1,
     Asteroid2,
     Asteroid3,
+    Enemy,
     Enemy1,
+    Enemy2,
+    Enemy3,
+    Enemy4,
     None,
 }
 
@@ -41,13 +45,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     float waveWait = default;
     bool gameOver;
-    bool pauseWave;
-    int countWave = 0;
     Scene currentScene;
 
     Pooler pooler;
-
-    PlayerManager player;
 
     //UI
     [SerializeField]
@@ -57,26 +57,27 @@ public class GameManager : MonoBehaviour
 
     //Components
     [SerializeField]
-    int hazardNumber = default;
-   // [SerializeField]
-    //GameObject player = default;
+    GameObject player = default;
     [SerializeField]
     GameObject playerExplosion = default;
     [SerializeField]
     Slider playerHealth = default;
     [SerializeField]
+    Slider playerBoost = default;
+    [SerializeField]
     public byte misiles;
+    public float maxBoost;
     [SerializeField]
     GameObject healthText;
 
     //MergeChanges
     public GameObject moneyText;
+    public GameObject missileText;
     public int money;
 
     void Start()
     {
-        
-        player = PlayerManager.Instance;
+
         gameOver = false;
         currentScene = SceneManager.GetActiveScene();
 
@@ -84,45 +85,36 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine (WaveSpawn());
 
+
         money = 0;
+        playerBoost.maxValue = maxBoost;
         UpdateMoney();
+        UpdateMissiles();
+        UpdateBoost(maxBoost);
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) pauseWave = false;
         PlayerHealthUpdate();
-        RestartUpdate();
-        #region TEST SAVE SYSTEM
-        if (Input.GetKeyDown("s"))
-        {
-            SavePlayer();
-        }
-        if (Input.GetKeyDown("l"))
-        {
-            LoadPlayer();
-        }
-        #endregion
+        RestartUpdate();      
     }
 
     private void PlayerHealthUpdate()
-    {    if(player.health <= 0)
-       // if (PlayerManager.health <= 0)
+    {
+        if (player.GetComponent<PlayerManager>().health <= 0)
         {
             if (gameOver == false)
             {
                 Instantiate(playerExplosion, player.transform.position, player.transform.rotation);
-                player.gameObject.SetActive(false);
+                player.SetActive(false);
                 gameOverUI.SetActive(true);
                 inGameUI.SetActive(false);
-               healthText.GetComponent<Text>().text = "" + player.health;
+                healthText.GetComponent<Text>().text = "" + player.GetComponent<PlayerManager>().health;
             }
             gameOver = true;         
         }
-        //PlayerManager.health = Mathf.Clamp(PlayerManager.health, 0, 100);
-        //playerHealth.value = PlayerManager.health;
-        player.health = Mathf.Clamp(player.health, 0, player.maxHealth);
-        playerHealth.value = player.health;
+        player.GetComponent<PlayerManager>().health = Mathf.Clamp(player.GetComponent<PlayerManager>().health, 0, 100);
+        playerHealth.value = player.GetComponent<PlayerManager>().health;
     }
     private void RestartUpdate()
     {
@@ -131,6 +123,11 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(currentScene.name);
         }
                
+    }
+
+    public void UpdateMissiles()
+    {
+        missileText.GetComponent<Text>().text = "x " + misiles;
     }
 
     void UpdateMoney()
@@ -142,31 +139,32 @@ public class GameManager : MonoBehaviour
         money += newMoneyValue;
         UpdateMoney();
     }
+    public void UpdateBoost(float boost)
+    {
+        playerBoost.value = boost;
+    }
 
     [SerializeField]
     Wave[] waves;
+    [SerializeField]
+    GameObject enemy1;
+    [SerializeField]
+    GameObject enemy2;
+    [SerializeField]
+    GameObject enemy3;
 
     IEnumerator WaveSpawn()
     {
-        yield return new WaitForSeconds(startWait); //Esperamos antes de tirarle cosas al principio      
-        //foreach (Wave wave in waves)
-        for ( int j =0; j < waves.Length; j++)
+        yield return new WaitForSeconds(startWait); //Esperamos antes de tirarle cosas al principio
+        foreach(Wave wave in waves)
         {
-            while (pauseWave)
+            for (int i = 0; i < wave.enemies.Length; i++)
             {
-                yield return null;
-                if (!pauseWave)
-                    break;
-            }
-            Debug.Log(j);
-            for (int i = 0; i < waves[j].enemies.Length; i++)
-            {
-               
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
 
                 //Spawn from pool
-                EnemyType et = waves[j].enemies[i];
+                EnemyType et = wave.enemies[i];
 
                 switch (et)
                 {
@@ -181,87 +179,29 @@ public class GameManager : MonoBehaviour
                     case EnemyType.Asteroid3:
                         pooler.SpawnFromPool("Asteroid3", spawnPosition, spawnRotation);
                         break;
+                    case EnemyType.Enemy:
+                        pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
+                        break;
                     case EnemyType.Enemy1:
-                        pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
+                        //pooler.SpawnFromPool("Enemy1", spawnPosition, spawnRotation);
+                        Instantiate(enemy1, spawnPosition, spawnRotation);
                         break;
-
-                }               
-                yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo            
-            }
-            countWave++;
-            if (countWave > 2)
-            {
-                pauseWave = true;
-                countWave = 0;
-                Invoke("openShop", 2f); 
-            }
-                
-            yield return new WaitForSeconds(waveWait); 
-            //ShopManager.Instance.closeShop();
-        }
-    }
-    void openShop()
-    {
-        ShopManager.Instance.showShop();
-    }
-    public void closeShop()
-    {
-        ShopManager.Instance.closeShop();
-        pauseWave = false;
-    }
-
-    /*
-    IEnumerator SpawnWaves()
-    {
-        yield return new WaitForSeconds(startWait); //Esperamos antes de tirarle cosas al principio
-        while (true)
-        {
-            for (int i = 0; i < hazardCount; i++)
-            {
-                Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
-                Quaternion spawnRotation = Quaternion.identity;
-
-                //Spawn from pool
-                int r = Random.Range(0, hazardNumber);
-
-                switch (r)
-                {
-                    case 0:
-                        pooler.SpawnFromPool("Asteroid", spawnPosition, spawnRotation);
+                    case EnemyType.Enemy2:
+                        //pooler.SpawnFromPool("Enemy2", spawnPosition, spawnRotation);
+                        Instantiate(enemy2, spawnPosition, spawnRotation);
                         break;
-                    case 1:
-                        pooler.SpawnFromPool("Asteroid2", spawnPosition, spawnRotation);
+                    case EnemyType.Enemy3:
+                        //pooler.SpawnFromPool("Enemy3", spawnPosition, spawnRotation);
+                        Instantiate(enemy3, spawnPosition, spawnRotation);
                         break;
-                    case 2:
-                        pooler.SpawnFromPool("Asteroid3", spawnPosition, spawnRotation);
+                    case EnemyType.Enemy4:
+                        pooler.SpawnFromPool("Enemy4", spawnPosition, spawnRotation);
                         break;
-                    case 3:
-                        pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
-                        break;
-
                 }
-                ShopManager.Instance.showShop();
+
                 yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
-                ShopManager.Instance.closeShop();
             }
             yield return new WaitForSeconds(waveWait);
         }
-    }*/
-    public void SavePlayer()
-    {
-        SaveSystem.SavePlayer(this, player.GetComponent<PlayerManager>(), player.GetComponent<PlayerMovement>());
-    }
-    public void LoadPlayer()
-    {
-        PlayerData data = SaveSystem.LoadPlayer();
-
-        this.money = data.money;
-      //  player.GetComponent<PlayerManager>().health = data.health;
-        //Load position
-        Vector3 position;
-        position.x = data.position[0];
-        position.y = data.position[1];
-        position.z = data.position[2];
-        player.transform.position = position;
     }
 }
