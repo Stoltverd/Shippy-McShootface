@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
             speed = normalSpeed;
             if (currentBoost <= 0 && canChargeBoost)
             {
-                boostCooldown = 1;
+                boostCooldown = 4;
                 canChargeBoost = false;
             }
         }
@@ -99,14 +99,17 @@ public class PlayerMovement : MonoBehaviour
     void ChargeBoost()
     {
         if (boostCooldown <= 0)
-        {
-            canChargeBoost = true;
+        {        
             currentBoost += Time.deltaTime * boostChargeSpeed;
             GameManager.Instance.UpdateBoost(currentBoost);
         }
         else if (boostCooldown > 0)
         {
             boostCooldown -= Time.deltaTime;
+        }
+        if (currentBoost > 0)
+        {
+            canChargeBoost = true;
         }
     }
 }

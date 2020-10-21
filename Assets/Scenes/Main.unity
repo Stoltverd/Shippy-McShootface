@@ -1364,7 +1364,7 @@ MonoBehaviour:
   fireRate: 0.3
   currentBoost: 0
   boostCooldown: 0
-  boostChargeSpeed: 0.5
+  boostChargeSpeed: 0.1
 --- !u!82 &688341364
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2351,7 +2351,7 @@ MonoBehaviour:
   playerHealth: {fileID: 767350128}
   playerBoost: {fileID: 208200788}
   misiles: 3
-  maxBoost: 5
+  maxBoost: 2
   healthText: {fileID: 1952112290}
   moneyText: {fileID: 899757338}
   missileText: {fileID: 668309711}
