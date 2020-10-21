@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     float waveWait = default;
     bool gameOver;
+    bool pauseWave;
+    int countWave = 0;
     Scene currentScene;
 
     Pooler pooler;
@@ -73,6 +75,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        
         player = PlayerManager.Instance;
         gameOver = false;
         currentScene = SceneManager.GetActiveScene();
@@ -81,13 +84,13 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine (WaveSpawn());
 
-
         money = 0;
         UpdateMoney();
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1)) pauseWave = false;
         PlayerHealthUpdate();
         RestartUpdate();
         #region TEST SAVE SYSTEM
@@ -145,16 +148,25 @@ public class GameManager : MonoBehaviour
 
     IEnumerator WaveSpawn()
     {
-        yield return new WaitForSeconds(startWait); //Esperamos antes de tirarle cosas al principio
-        foreach(Wave wave in waves)
+        yield return new WaitForSeconds(startWait); //Esperamos antes de tirarle cosas al principio      
+        //foreach (Wave wave in waves)
+        for ( int j =0; j < waves.Length; j++)
         {
-            for (int i = 0; i < wave.enemies.Length; i++)
+            while (pauseWave)
             {
+                yield return null;
+                if (!pauseWave)
+                    break;
+            }
+            Debug.Log(j);
+            for (int i = 0; i < waves[j].enemies.Length; i++)
+            {
+               
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
 
                 //Spawn from pool
-                EnemyType et = wave.enemies[i];
+                EnemyType et = waves[j].enemies[i];
 
                 switch (et)
                 {
@@ -173,15 +185,32 @@ public class GameManager : MonoBehaviour
                         pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
                         break;
 
-                }
-               
-                yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
-              
+                }               
+                yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo            
             }
-            yield return new WaitForSeconds(waveWait);
+            countWave++;
+            if (countWave > 2)
+            {
+                pauseWave = true;
+                countWave = 0;
+                Invoke("openShop", 2f); 
+            }
+                
+            yield return new WaitForSeconds(waveWait); 
+            //ShopManager.Instance.closeShop();
         }
     }
+    void openShop()
+    {
+        ShopManager.Instance.showShop();
+    }
+    public void closeShop()
+    {
+        ShopManager.Instance.closeShop();
+        pauseWave = false;
+    }
 
+    /*
     IEnumerator SpawnWaves()
     {
         yield return new WaitForSeconds(startWait); //Esperamos antes de tirarle cosas al principio
@@ -217,7 +246,7 @@ public class GameManager : MonoBehaviour
             }
             yield return new WaitForSeconds(waveWait);
         }
-    }
+    }*/
     public void SavePlayer()
     {
         SaveSystem.SavePlayer(this, player.GetComponent<PlayerManager>(), player.GetComponent<PlayerMovement>());

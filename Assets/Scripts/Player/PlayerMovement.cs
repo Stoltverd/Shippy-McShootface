@@ -59,11 +59,12 @@ public class PlayerMovement : MonoBehaviour
             GetComponent<AudioSource>().Play();
         }
 
-        if (Input.GetButtonDown("Fire2") && GameManager.Instance.misiles > 0)
+        if (Input.GetButtonDown("Fire2") && PlayerManager.Instance.misil > 0)
         {
+            Debug.Log(PlayerManager.Instance.misil);
             nextFire = Time.time + fireRate;
             pooler.SpawnFromPool("Missile", shotSpawn.position, shotSpawn.rotation); //as GameObject;
-            GameManager.Instance.misiles--;
+            PlayerManager.Instance.misil--;
         }
 
     }

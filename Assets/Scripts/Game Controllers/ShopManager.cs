@@ -81,7 +81,8 @@ public class ShopManager : MonoBehaviour
         }   
     }
     public void showShop()
-    {     
+    {
+        Debug.Log("Tienda abirrta");
         TiendaUI.SetActive(true);
     }
     public void closeShop()
