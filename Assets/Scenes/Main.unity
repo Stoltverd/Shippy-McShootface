@@ -1301,7 +1301,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverUI: {fileID: 704988769}
+  maxHealth: 100
   health: 100
+  speed: 0
+  maxSpeed: 0
+  misil: 0
+  maxMisil: 0
   damage: 5
   animator: {fileID: 0}
 --- !u!95 &688341366
@@ -2174,7 +2179,6 @@ MonoBehaviour:
   gameOverUI: {fileID: 704988769}
   inGameUI: {fileID: 290645593}
   hazardNumber: 4
-  player: {fileID: 688341357}
   playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 3}
   playerHealth: {fileID: 767350128}
   misiles: 3
@@ -2193,9 +2197,6 @@ MonoBehaviour:
   - enemies: 0400000008000000080000000400000008000000080000000500000006000000
   - enemies: 0300000008000000030000000800000008000000040000000500000006000000
   - enemies: 0500000006000000050000000600000005000000060000000500000006000000
-  enemy1: {fileID: 814388799320840618, guid: cb6da60506fbd884298b9a21055c3bc4, type: 3}
-  enemy2: {fileID: 7753148239048457890, guid: 5c0492d492541604994a5fa44d086359, type: 3}
-  enemy3: {fileID: 8886662128447224164, guid: 61c9cb2156204ba4e9fb0baeb3e52e31, type: 3}
 --- !u!4 &961576640
 Transform:
   m_ObjectHideFlags: 0
