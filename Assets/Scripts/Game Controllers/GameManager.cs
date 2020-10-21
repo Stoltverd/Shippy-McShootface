@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public enum EnemyType
+public enum ObjectType
 {
     Asteroid1,
     Asteroid2,
@@ -16,12 +16,13 @@ public enum EnemyType
     Enemy3,
     Enemy4,
     None,
+    Store,
 }
 
 [System.Serializable]
 public class Wave
 {
-    public EnemyType[] enemies;
+    public ObjectType[] enemies;
 }
 
 public class GameManager : MonoBehaviour
@@ -46,6 +47,8 @@ public class GameManager : MonoBehaviour
     float waveWait = default;
     bool gameOver;
     Scene currentScene;
+    bool pauseWave;
+    int countWave = 0;
 
     Pooler pooler;
 
@@ -77,7 +80,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        //player = PlayerManager.Instance;
         gameOver = false;
         currentScene = SceneManager.GetActiveScene();
 
@@ -96,7 +99,17 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         PlayerHealthUpdate();
-        RestartUpdate();      
+        RestartUpdate();
+        #region TEST SAVE SYSTEM
+        if (Input.GetKeyDown("s"))
+        {
+            SavePlayer();
+        }
+        if (Input.GetKeyDown("l"))
+        {
+            LoadPlayer();
+        }
+        #endregion
     }
 
     private void PlayerHealthUpdate()
@@ -130,7 +143,7 @@ public class GameManager : MonoBehaviour
         missileText.GetComponent<Text>().text = "x " + misiles;
     }
 
-    void UpdateMoney()
+   public void UpdateMoney()
     {
         moneyText.GetComponent<Text>().text = ": " + money;
     }
@@ -156,55 +169,78 @@ public class GameManager : MonoBehaviour
     IEnumerator WaveSpawn()
     {
         yield return new WaitForSeconds(startWait); //Esperamos antes de tirarle cosas al principio
-        foreach(Wave wave in waves)
+        //foreach(Wave wave in waves)
+        for (int j = 0; j < waves.Length; j++)
         {
-            for (int i = 0; i < wave.enemies.Length; i++)
+            while (pauseWave)
+            {
+                yield return null;
+                if (!pauseWave)
+                    break;
+            }
+            Debug.Log(j);
+            for (int i = 0; i < waves[j].enemies.Length; i++)
             {
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
 
                 //Spawn from pool
-                EnemyType et = wave.enemies[i];
+                ObjectType et = waves[j].enemies[i];
 
                 switch (et)
                 {
-                    case EnemyType.None:
+                    case ObjectType.None:
                         break;
-                    case EnemyType.Asteroid1:
+                    case ObjectType.Asteroid1:
                         pooler.SpawnFromPool("Asteroid", spawnPosition, spawnRotation);
                         break;
-                    case EnemyType.Asteroid2:
+                    case ObjectType.Asteroid2:
                         pooler.SpawnFromPool("Asteroid2", spawnPosition, spawnRotation);
                         break;
-                    case EnemyType.Asteroid3:
+                    case ObjectType.Asteroid3:
                         pooler.SpawnFromPool("Asteroid3", spawnPosition, spawnRotation);
                         break;
-                    case EnemyType.Enemy:
+                    case ObjectType.Enemy:
                         pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
                         break;
-                    case EnemyType.Enemy1:
+                    case ObjectType.Enemy1:
                         //pooler.SpawnFromPool("Enemy1", spawnPosition, spawnRotation);
                         Instantiate(enemy1, spawnPosition, spawnRotation);
                         break;
-                    case EnemyType.Enemy2:
+                    case ObjectType.Enemy2:
                         //pooler.SpawnFromPool("Enemy2", spawnPosition, spawnRotation);
                         Instantiate(enemy2, spawnPosition, spawnRotation);
                         break;
-                    case EnemyType.Enemy3:
+                    case ObjectType.Enemy3:
                         //pooler.SpawnFromPool("Enemy3", spawnPosition, spawnRotation);
                         Instantiate(enemy3, spawnPosition, spawnRotation);
                         break;
-                    case EnemyType.Enemy4:
+                    case ObjectType.Enemy4:
                         pooler.SpawnFromPool("Enemy4", spawnPosition, spawnRotation);
+                        break;
+                    case ObjectType.Store:
+                        pauseWave = true;
+                        countWave = 0;
+                        Invoke("openShop", 2f);
                         break;
                 }
 
                 yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
             }
+            countWave++;
+            
             yield return new WaitForSeconds(waveWait);
         }
     }
-<<<<<<< HEAD
+    void openShop()
+    {
+        ShopManager.Instance.showShop();
+    }
+    public void closeShop()
+    {
+        ShopManager.Instance.closeShop();
+        pauseWave = false;
+    }
     public void SavePlayer()
     {
         SaveSystem.SavePlayer(this, player.GetComponent<PlayerManager>(), player.GetComponent<PlayerMovement>());
@@ -213,8 +249,8 @@ public class GameManager : MonoBehaviour
     {
         PlayerData data = SaveSystem.LoadPlayer();
 
-        money = data.money;
-        player.GetComponent<PlayerManager>().health = data.health;
+        this.money = data.money;
+        //  player.GetComponent<PlayerManager>().health = data.health;
         //Load position
         Vector3 position;
         position.x = data.position[0];
@@ -222,6 +258,4 @@ public class GameManager : MonoBehaviour
         position.z = data.position[2];
         player.transform.position = position;
     }
-=======
->>>>>>> master
 }

@@ -17,7 +17,16 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     int priceSpeed;
     [SerializeField]
-    int priceMisil; 
+    int priceMisil;
+
+    [SerializeField]
+    GameObject priceHealthTxt;
+    [SerializeField]
+    GameObject priceSpeedTxt;
+    [SerializeField]
+    GameObject priceMisilTxt;
+    [SerializeField]
+    GameObject priceFuelTxt;
 
     private void Awake()
     {
@@ -26,15 +35,23 @@ public class ShopManager : MonoBehaviour
             Instance = this;
         }
     }
+    private void Start()
+    {
+        priceHealthTxt.GetComponent<Text>().text = priceHealth.ToString();
+        priceSpeedTxt.GetComponent<Text>().text = priceSpeed.ToString();
+        priceMisilTxt.GetComponent<Text>().text = priceMisil.ToString();
+        priceFuelTxt.GetComponent<Text>().text = priceFuel.ToString();
+    }
     public void comprar(int id)
     {
-        switch (id) // ID=1 vida, ID=2 Speed, ID=3 Misil, ID=4 Misil 
+        switch (id) // ID=1 vida, ID=2 Speed, ID=3 Misil, ID=4 Fuel 
         {
             case 1:
                 if(GameManager.Instance.money >= priceHealth) //validación de cada costo
                 {
                     PlayerManager.Instance.addHealth(30);
                     GameManager.Instance.money -= priceHealth;
+                    GameManager.Instance.UpdateMoney();
                     Debug.Log("vida");
                 }
                 else
@@ -45,8 +62,10 @@ public class ShopManager : MonoBehaviour
             case 2:
                 if (GameManager.Instance.money >= priceSpeed)
                 {
-                    PlayerManager.Instance.addSpeed(0.5f);
+                    PlayerMovement.Instance.addSpeed(0.5f);
                     GameManager.Instance.money -= priceSpeed;
+                    GameManager.Instance.UpdateMoney();
+                    Debug.Log("Speed + 0.5");
                 }
                 else
                 {
@@ -54,11 +73,15 @@ public class ShopManager : MonoBehaviour
                 }
                 break;
             case 3:
-                if (GameManager.Instance.money >= priceMisil)
+                if (GameManager.Instance.money >= priceMisil && PlayerManager.Instance.misil < PlayerManager.Instance.maxMisil)
                 {
                     PlayerManager.Instance.addMisil(1);
                     GameManager.Instance.money -= priceMisil;
+                    GameManager.Instance.UpdateMoney();
+                    Debug.Log("Misil Extra");
                 }
+                else if (PlayerManager.Instance.misil > PlayerManager.Instance.maxMisil)
+                    Debug.Log("Máximo de misiles alcanzado");
                 else
                 {
                     nofio.SetActive(true);
@@ -69,6 +92,7 @@ public class ShopManager : MonoBehaviour
                 {
                     PlayerManager.Instance.addFuel(1);
                     GameManager.Instance.money -= priceFuel;
+                    GameManager.Instance.UpdateMoney();
                 }
                 else
                 {
@@ -78,12 +102,11 @@ public class ShopManager : MonoBehaviour
 
 
 
-        }
-
-        Debug.Log("vida");
+        }   
     }
     public void showShop()
-    {     
+    {
+        Debug.Log("Tienda abirrta");
         TiendaUI.SetActive(true);
     }
     public void closeShop()
