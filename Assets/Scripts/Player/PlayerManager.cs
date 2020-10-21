@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour, IHittable
     private GameObject gameOverUI;
 
     //Variables
-    public float speed, maxSpeed;
+    private float speed, maxSpeed;
     public float maxHealth;
     public float health;
     public int misil, maxMisil;
@@ -65,11 +65,11 @@ public class PlayerManager : MonoBehaviour, IHittable
     
     public void addFuel(int i)
     {
-        if (speed < maxSpeed)              // estructura para Fuel por cargas
+        if (GameManager.Instance.maxBoost < 20)              // estructura para Fuel por cargas
         {
-            speed += i;
-            if (speed > maxSpeed)
-                speed = maxSpeed;
+            GameManager.Instance.maxBoost += i;
+            if (GameManager.Instance.maxBoost > 20)
+                GameManager.Instance.maxBoost = 20;
         }
     }
     public void addMisil(int i)     //estructura alternativa de Misiles
