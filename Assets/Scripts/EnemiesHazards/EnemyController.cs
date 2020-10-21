@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour, IHittable
     AudioSource audioSource;
 
     [SerializeField]
+    private float maxHealth;
     private float health;
     [SerializeField]
     private float damage;
@@ -23,6 +24,7 @@ public class EnemyController : MonoBehaviour, IHittable
 
     void Start()
     {
+        health = maxHealth;
         audioSource = GetComponent<AudioSource>();
         ogColor = GetComponentInChildren<Renderer>().material.color;
     }
@@ -45,7 +47,7 @@ public class EnemyController : MonoBehaviour, IHittable
     {
         if (other.tag == "Player")
         {
-            other.GetComponent<PlayerManager>().OnHit(damage);
+            //other.GetComponent<PlayerManager>().OnHit(damage);
             Die();
         }
     }
@@ -53,13 +55,14 @@ public class EnemyController : MonoBehaviour, IHittable
     void Die()
     {
         Instantiate(enemyExplosion, GetComponent<Transform>().position, GetComponent<Transform>().rotation);
+        health = maxHealth;
         gameObject.SetActive(false);
     }
 
     IEnumerator Hitcolor()
     {
         GetComponentInChildren<Renderer>().material.color = hitColor;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         GetComponentInChildren<Renderer>().material.color = ogColor;
     }
 }

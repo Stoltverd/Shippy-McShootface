@@ -8,6 +8,7 @@ public class PlayerData
 
     public int money;
     public float health;
+
     public float[] position; //Can't use Vector3. Can't be serialized.
 
 
@@ -15,7 +16,7 @@ public class PlayerData
     public PlayerData(GameManager gameManager,PlayerManager playerManager, PlayerMovement playerMovement)
     {
         money = gameManager.money;
-        health = playerManager.health;
+        //health = playerManager.health;
 
         position = new float[3];
         position[0] = playerMovement.transform.position.x;

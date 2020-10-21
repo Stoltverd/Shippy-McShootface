@@ -21,12 +21,25 @@ public class PlayerMovement : MonoBehaviour
     public float fireRate;
     private float nextFire;
 
+    public float currentBoost;
+    private float boostSpeed;
+    private float normalSpeed;
+    bool canChargeBoost = true;
+    [SerializeField]
+    private float boostCooldown;
+    [SerializeField]
+    private float boostChargeSpeed;
+
     private Pooler pooler;
     
 
     void Start()
     {
         pooler = Pooler.Instance;
+
+        boostSpeed = speed * 2;
+        normalSpeed = speed;
+        currentBoost = GameManager.Instance.maxBoost;
     }
 
     private void FixedUpdate()//se ejecuta antes de cada step de la fisica 
@@ -52,6 +65,51 @@ public class PlayerMovement : MonoBehaviour
             pooler.SpawnFromPool("Bullet", shotSpawn.position, shotSpawn.rotation); //as GameObject;
             GetComponent<AudioSource>().Play();
         }
-        
+
+        if (Input.GetButtonDown("Fire2") && GameManager.Instance.misiles > 0)
+        {
+            nextFire = Time.time + fireRate;           
+            pooler.SpawnFromPool("Missile", shotSpawn.position, shotSpawn.rotation); //as GameObject;
+            GameManager.Instance.misiles--;
+            GameManager.Instance.UpdateMissiles();
+        }
+
+        //Boost
+        if (Input.GetButton("Jump") && currentBoost > 0)
+        {
+            speed = boostSpeed;
+            currentBoost -= Time.deltaTime;
+            GameManager.Instance.UpdateBoost(currentBoost);
+        }
+        else if (currentBoost <= GameManager.Instance.maxBoost)
+        {
+            ChargeBoost();
+        }
+        if (Input.GetButtonUp("Jump") || currentBoost <= 0)
+        {
+            speed = normalSpeed;
+            if (currentBoost <= 0 && canChargeBoost)
+            {
+                boostCooldown = 4;
+                canChargeBoost = false;
+            }
+        }
+    }
+
+    void ChargeBoost()
+    {
+        if (boostCooldown <= 0)
+        {        
+            currentBoost += Time.deltaTime * boostChargeSpeed;
+            GameManager.Instance.UpdateBoost(currentBoost);
+        }
+        else if (boostCooldown > 0)
+        {
+            boostCooldown -= Time.deltaTime;
+        }
+        if (currentBoost > 0)
+        {
+            canChargeBoost = true;
+        }
     }
 }

@@ -5,6 +5,25 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public enum EnemyType
+{
+    Asteroid1,
+    Asteroid2,
+    Asteroid3,
+    Enemy,
+    Enemy1,
+    Enemy2,
+    Enemy3,
+    Enemy4,
+    None,
+}
+
+[System.Serializable]
+public class Wave
+{
+    public EnemyType[] enemies;
+}
+
 public class GameManager : MonoBehaviour
 {
     //Make this a singleton
@@ -38,49 +57,46 @@ public class GameManager : MonoBehaviour
 
     //Components
     [SerializeField]
-    int hazardNumber = default;
-    [SerializeField]
     GameObject player = default;
     [SerializeField]
     GameObject playerExplosion = default;
     [SerializeField]
     Slider playerHealth = default;
     [SerializeField]
+    Slider playerBoost = default;
+    [SerializeField]
+    public byte misiles;
+    public float maxBoost;
+    [SerializeField]
     GameObject healthText;
 
     //MergeChanges
     public GameObject moneyText;
+    public GameObject missileText;
     public int money;
 
     void Start()
     {
 
-       gameOver = false;
+        gameOver = false;
         currentScene = SceneManager.GetActiveScene();
 
         pooler = Pooler.Instance;
 
-        StartCoroutine (SpawnWaves());
+        StartCoroutine (WaveSpawn());
 
 
         money = 0;
+        playerBoost.maxValue = maxBoost;
         UpdateMoney();
+        UpdateMissiles();
+        UpdateBoost(maxBoost);
     }
 
     void Update()
     {
         PlayerHealthUpdate();
-        RestartUpdate();
-        #region TEST SAVE SYSTEM
-        if (Input.GetKeyDown("s"))
-        {
-            SavePlayer();
-        }
-        if (Input.GetKeyDown("l"))
-        {
-            LoadPlayer();
-        }
-        #endregion
+        RestartUpdate();      
     }
 
     private void PlayerHealthUpdate()
@@ -109,6 +125,11 @@ public class GameManager : MonoBehaviour
                
     }
 
+    public void UpdateMissiles()
+    {
+        missileText.GetComponent<Text>().text = "x " + misiles;
+    }
+
     void UpdateMoney()
     {
         moneyText.GetComponent<Text>().text = ": " + money;
@@ -118,42 +139,72 @@ public class GameManager : MonoBehaviour
         money += newMoneyValue;
         UpdateMoney();
     }
+    public void UpdateBoost(float boost)
+    {
+        playerBoost.value = boost;
+    }
 
-    IEnumerator SpawnWaves()
+    [SerializeField]
+    Wave[] waves;
+    [SerializeField]
+    GameObject enemy1;
+    [SerializeField]
+    GameObject enemy2;
+    [SerializeField]
+    GameObject enemy3;
+
+    IEnumerator WaveSpawn()
     {
         yield return new WaitForSeconds(startWait); //Esperamos antes de tirarle cosas al principio
-        while (true)
+        foreach(Wave wave in waves)
         {
-            for (int i = 0; i < hazardCount; i++)
+            for (int i = 0; i < wave.enemies.Length; i++)
             {
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
 
                 //Spawn from pool
-                int r = Random.Range(0, hazardNumber);
+                EnemyType et = wave.enemies[i];
 
-                switch (r)
+                switch (et)
                 {
-                    case 0:
+                    case EnemyType.None:
+                        break;
+                    case EnemyType.Asteroid1:
                         pooler.SpawnFromPool("Asteroid", spawnPosition, spawnRotation);
                         break;
-                    case 1:
+                    case EnemyType.Asteroid2:
                         pooler.SpawnFromPool("Asteroid2", spawnPosition, spawnRotation);
                         break;
-                    case 2:
+                    case EnemyType.Asteroid3:
                         pooler.SpawnFromPool("Asteroid3", spawnPosition, spawnRotation);
                         break;
-                    case 3:
+                    case EnemyType.Enemy:
                         pooler.SpawnFromPool("Enemy", spawnPosition, spawnRotation);
                         break;
-
-                }              
+                    case EnemyType.Enemy1:
+                        //pooler.SpawnFromPool("Enemy1", spawnPosition, spawnRotation);
+                        Instantiate(enemy1, spawnPosition, spawnRotation);
+                        break;
+                    case EnemyType.Enemy2:
+                        //pooler.SpawnFromPool("Enemy2", spawnPosition, spawnRotation);
+                        Instantiate(enemy2, spawnPosition, spawnRotation);
+                        break;
+                    case EnemyType.Enemy3:
+                        //pooler.SpawnFromPool("Enemy3", spawnPosition, spawnRotation);
+                        Instantiate(enemy3, spawnPosition, spawnRotation);
+                        break;
+                    case EnemyType.Enemy4:
+                        pooler.SpawnFromPool("Enemy4", spawnPosition, spawnRotation);
+                        break;
+                }
 
                 yield return new WaitForSeconds(spawnWait);//esperamos antes de hacer otro ciclo
             }
             yield return new WaitForSeconds(waveWait);
         }
     }
+<<<<<<< HEAD
     public void SavePlayer()
     {
         SaveSystem.SavePlayer(this, player.GetComponent<PlayerManager>(), player.GetComponent<PlayerMovement>());
@@ -171,4 +222,6 @@ public class GameManager : MonoBehaviour
         position.z = data.position[2];
         player.transform.position = position;
     }
+=======
+>>>>>>> master
 }

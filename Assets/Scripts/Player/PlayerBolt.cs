@@ -11,7 +11,10 @@ public class PlayerBolt : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         IHittable hittable = other.GetComponent<IHittable>();
-        hittable.OnHit(damage);
-        gameObject.SetActive(false);
+        if (hittable != null)
+        {
+            hittable.OnHit(damage);
+            gameObject.SetActive(false);
+        }
     }
 }
