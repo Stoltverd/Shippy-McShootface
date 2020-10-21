@@ -2351,7 +2351,7 @@ MonoBehaviour:
   playerHealth: {fileID: 767350128}
   playerBoost: {fileID: 208200788}
   misiles: 3
-  maxBoost: 2
+  maxBoost: 3
   healthText: {fileID: 1952112290}
   moneyText: {fileID: 899757338}
   missileText: {fileID: 668309711}

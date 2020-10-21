@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
         playerBoost.maxValue = maxBoost;
         UpdateMoney();
         UpdateMissiles();
+        UpdateBoost(maxBoost);
     }
 
     void Update()
