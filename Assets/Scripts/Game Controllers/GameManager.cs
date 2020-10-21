@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerData data = SaveSystem.LoadPlayer();
 
-        this.money = data.money;
+        money = data.money;
         player.GetComponent<PlayerManager>().health = data.health;
         //Load position
         Vector3 position;
