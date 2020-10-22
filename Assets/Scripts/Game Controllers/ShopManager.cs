@@ -28,6 +28,8 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     GameObject priceFuelTxt;
 
+    
+
     private void Awake()
     {
         if (Instance == null)
@@ -44,6 +46,7 @@ public class ShopManager : MonoBehaviour
     }
     public void comprar(int id)
     {
+        play();
         switch (id) // ID=1 vida, ID=2 Speed, ID=3 Misil, ID=4 Fuel 
         {
             case 1:
@@ -91,6 +94,7 @@ public class ShopManager : MonoBehaviour
             case 4:
                 if (GameManager.Instance.money >= priceFuel)
                 {
+
                     PlayerManager.Instance.addFuel(1);
                     GameManager.Instance.money -= priceFuel;
                     GameManager.Instance.UpdateMoney();
@@ -114,6 +118,10 @@ public class ShopManager : MonoBehaviour
     {
         TiendaUI.SetActive(false);
         GameManager.Instance.pauseWave = false;
+    }
+    public void play()
+    {
+        GetComponent<AudioSource>().Play();
     }
 
   

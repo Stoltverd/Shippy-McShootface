@@ -127,7 +127,8 @@ public class GameManager : MonoBehaviour
                 inGameUI.SetActive(false);
                 healthText.GetComponent<Text>().text = "" + player.GetComponent<PlayerManager>().health;
             }
-            gameOver = true;         
+            gameOver = true;
+            pauseWave = true;
         }
         player.GetComponent<PlayerManager>().health = Mathf.Clamp(player.GetComponent<PlayerManager>().health, 0, 100);
         playerHealth.value = player.GetComponent<PlayerManager>().health;
@@ -182,7 +183,11 @@ public class GameManager : MonoBehaviour
                 if (!pauseWave)
                     break;
             }
-            Debug.Log(j);
+            if(j == waves.Length-1)
+            {
+                j = 2;
+            }
+            Debug.Log("Ola numero: "+j);
             for (int i = 0; i < waves[j].enemies.Length; i++)
             {
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
