@@ -103,16 +103,6 @@ public class GameManager : MonoBehaviour
     {
         PlayerHealthUpdate();
         RestartUpdate();
-        #region TEST SAVE SYSTEM
-        if (Input.GetKeyDown("s"))
-        {
-            SavePlayer();
-        }
-        if (Input.GetKeyDown("l"))
-        {
-            LoadPlayer();
-        }
-        #endregion
     }
 
     private void PlayerHealthUpdate()
