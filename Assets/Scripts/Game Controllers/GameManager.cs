@@ -31,7 +31,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
     }
 
     //Variables
@@ -47,8 +50,11 @@ public class GameManager : MonoBehaviour
     float waveWait = default;
     bool gameOver;
     Scene currentScene;
-    bool pauseWave;
+    public bool pauseWave;
     int countWave = 0;
+    public int misiles;
+    public int maxMisiles;
+    public float maxBoost;
 
     Pooler pooler;
 
@@ -67,9 +73,6 @@ public class GameManager : MonoBehaviour
     Slider playerHealth = default;
     [SerializeField]
     Slider playerBoost = default;
-    [SerializeField]
-    public byte misiles;
-    public float maxBoost;
     [SerializeField]
     GameObject healthText;
 
@@ -166,6 +169,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     GameObject enemy3;
 
+ 
     IEnumerator WaveSpawn()
     {
         yield return new WaitForSeconds(startWait); //Esperamos antes de tirarle cosas al principio
@@ -236,11 +240,7 @@ public class GameManager : MonoBehaviour
     {
         ShopManager.Instance.showShop();
     }
-    public void closeShop()
-    {
-        ShopManager.Instance.closeShop();
-        pauseWave = false;
-    }
+  
     public void SavePlayer()
     {
         SaveSystem.SavePlayer(this, player.GetComponent<PlayerManager>(), player.GetComponent<PlayerMovement>());

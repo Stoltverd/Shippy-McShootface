@@ -73,14 +73,15 @@ public class ShopManager : MonoBehaviour
                 }
                 break;
             case 3:
-                if (GameManager.Instance.money >= priceMisil && PlayerManager.Instance.misil < PlayerManager.Instance.maxMisil)
+                if (GameManager.Instance.money >= priceMisil && GameManager.Instance.misiles < GameManager.Instance.maxMisiles)
                 {
                     PlayerManager.Instance.addMisil(1);
                     GameManager.Instance.money -= priceMisil;
                     GameManager.Instance.UpdateMoney();
+                    GameManager.Instance.UpdateMissiles();
                     Debug.Log("Misil Extra");
                 }
-                else if (PlayerManager.Instance.misil > PlayerManager.Instance.maxMisil)
+                else if (GameManager.Instance.misiles > GameManager.Instance.maxMisiles)
                     Debug.Log("Máximo de misiles alcanzado");
                 else
                 {
@@ -112,6 +113,7 @@ public class ShopManager : MonoBehaviour
     public void closeShop()
     {
         TiendaUI.SetActive(false);
+        GameManager.Instance.pauseWave = false;
     }
 
   
