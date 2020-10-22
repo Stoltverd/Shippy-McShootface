@@ -113,16 +113,27 @@ public class ShopManager : MonoBehaviour
     {
         Debug.Log("Tienda abirrta");
         TiendaUI.SetActive(true);
+        PauseGame();
     }
     public void closeShop()
     {
         TiendaUI.SetActive(false);
         GameManager.Instance.pauseWave = false;
+        ResumeGame();
     }
     public void play()
     {
         GetComponent<AudioSource>().Play();
     }
+    void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
 
-  
+    void ResumeGame()
+    {
+        Time.timeScale = 1;
+    }
+
+
 }

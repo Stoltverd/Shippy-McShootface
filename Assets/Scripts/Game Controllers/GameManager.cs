@@ -240,6 +240,7 @@ public class GameManager : MonoBehaviour
     {
         SaveSystem.SavePlayer(this, player.GetComponent<PlayerManager>(), player.GetComponent<PlayerMovement>());
     }
+
     public void LoadPlayer()
     {
         PlayerData data = SaveSystem.LoadPlayer();
