@@ -24,15 +24,22 @@ La versión final cuenta con todo los añadido en el alpha (pool, vida y money).
 Hay tres managers en el proyecto, el Gamemanager que funciona como el mayor comunicador dentro del juego, adminsitra las olas de enemigos y 
 los guarda el progreso del juego.También se encarga de cambiar los textos UI del juego. El playerManager se encarga adminsitrar al player, su 
 salud, el daño que hace y tiene un par de métoso que le sirven para que la tienda le aumente los atributos a cambio del dinero requerido. el Shop manager, que te perminte comprar objetos y mejoras, Lo que hace es acceder a los atributos puestos en el gamemanager o en el 
-playerManager a cambio del cosoto de dinero indicado que son datos numericos y los aument, como la vida, la capacidad de compustible etc..
+PlayerManager a cambio del costo de dinero indicado que son datos numericos y los boost, como la vida, la capacidad de compustible etc..
 
 Hay otros códigos importantes como el Player movement que se encarga del moviemitno y controles del player, y el enemy controller que es lo mismo peros solo para los enemgos 
 
-//posibles bugs//
+//Posibles bugs//
 - SE DEBE JUGAR EN PANTALLA COMPLETA,nuestro Ui se peude no ver si no esta en este modo-
 
-//Link Simmer//
+//Cambios sobre el GDD//
+Han habido numerosos cambios sobre el GDD.
+Es de notar que el alcance del juego se ha visto muy disminuido por los limitantes de tiempo. Los más significativos son:
+- La historia se ha reducido a los elementos más básicos, contada por medio de una corta historieta sin dialogos.
+- El número de enemigos se ha reducido considerablemente.
+- Las mecánicas sobre los modulos y diferentes armas se ha fusionado con la mecánica de la tienda y se han reemplazado las armas únicas por boosts. Los modulos se han omitido por completo en cuanto a su aplicación.
 
+//Link Simmer//
+https://simmer.io/@Stoltverd/shippy-mcshootface
 --------------------------------------------------------------------------------------------------------------------
 Alpha scripting
 
@@ -51,7 +58,7 @@ Los objetos vueleven al pool y hay controles de bugs para que algunos otros no s
 Hay conteo de puntos que se traducen en "money", y el player tener salud que si llega a cero deberá comenzar de nuevo
 
 
-//posibles bugs//
+//Posibles bugs//
 -Bugs de gameplay-
 Hay un bug de gameplay en el que una ola de asteroides salgan filados en una sola línea perpendicualr al eje Z
 El hud se puede perder si no se tiene el tamaño de pantalla adecuado
