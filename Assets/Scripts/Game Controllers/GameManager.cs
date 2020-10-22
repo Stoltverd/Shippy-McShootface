@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Slider playerHealth = default;
     [SerializeField]
-    Slider playerBoost = default;
+    public Slider playerBoost = default;
     [SerializeField]
     GameObject healthText;
 
@@ -248,9 +248,22 @@ public class GameManager : MonoBehaviour
     public void LoadPlayer()
     {
         PlayerData data = SaveSystem.LoadPlayer();
-
+        //Load money
         this.money = data.money;
-        //  player.GetComponent<PlayerManager>().health = data.health;
+        UpdateMoney();
+        //Load health
+        player.GetComponent<PlayerManager>().health = data.health;
+        PlayerHealthUpdate();
+        //Load speed
+        player.GetComponent<PlayerMovement>().speed = data.speed;
+        //Load misiles
+        this.misiles = data.misiles;
+        this.maxMisiles = data.maxMisiles;
+        UpdateMissiles();
+        //Load boost
+        player.GetComponent<PlayerMovement>().currentBoost = data.boost;
+        this.maxBoost = data.maxBoost;
+        UpdateBoost(playerBoost.value);
         //Load position
         Vector3 position;
         position.x = data.position[0];

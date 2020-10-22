@@ -12,7 +12,7 @@ public class EnemyBolt : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-          //  other.GetComponent<PlayerManager>().OnHit(damage);
+            other.GetComponent<PlayerManager>().OnHit(damage);
             gameObject.SetActive(false);
         }
     }
