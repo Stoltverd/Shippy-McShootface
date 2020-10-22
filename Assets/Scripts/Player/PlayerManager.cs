@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour, IHittable
     private float speed, maxSpeed;
     public float maxHealth;
     public float health;
-    public int misil, maxMisil;
+
     
     [SerializeField]
     public float damage;
@@ -74,11 +74,11 @@ public class PlayerManager : MonoBehaviour, IHittable
     }
     public void addMisil(int i)     //estructura alternativa de Misiles
     {
-        if (misil<maxMisil)
+        if (GameManager.Instance.misiles< GameManager.Instance.maxMisiles)
         {
-            misil+= i;
-            if (misil > maxMisil)
-                misil = maxMisil;
+            GameManager.Instance.misiles+= i;           
         }
+        
+                
     }
 }

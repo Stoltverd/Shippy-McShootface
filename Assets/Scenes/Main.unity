@@ -1813,8 +1813,6 @@ MonoBehaviour:
   gameOverUI: {fileID: 704988769}
   maxHealth: 100
   health: 100
-  misil: 3
-  maxMisil: 3
   damage: 5
   animator: {fileID: 688341366}
 --- !u!95 &688341366
@@ -2801,9 +2799,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 34980963}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1970517663}
+        m_MethodName: closeShop
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3184,23 +3182,25 @@ MonoBehaviour:
   spawnWait: 0.5
   startWait: 1
   waveWait: 4
+  pauseWave: 0
+  misiles: 3
+  maxMisiles: 10
+  maxBoost: 3
   gameOverUI: {fileID: 704988769}
   inGameUI: {fileID: 290645593}
   player: {fileID: 688341357}
   playerExplosion: {fileID: 100008, guid: a93496017806b7740910df5fd946f306, type: 3}
   playerHealth: {fileID: 767350128}
   playerBoost: {fileID: 208200788}
-  misiles: 3
-  maxBoost: 3
   healthText: {fileID: 1952112290}
   moneyText: {fileID: 899757338}
   missileText: {fileID: 668309711}
   money: 0
   waves:
-  - enemies: 000000000000000000000000000000000000000001000000
-  - enemies: 00000000000000000000000001000000010000000000000001000000
-  - enemies: 0000000000000000010000000100000001000000000000000200000009000000
-  - enemies: 000000000100000001000000000000000100000002000000020000000200000007000000
+  - enemies: 010000000100000001000000020000000200000005000000
+  - enemies: 00000000000000000000000001000000000000000000000001000000
+  - enemies: 0000000000000000010000000100000001000000050000000200000009000000
+  - enemies: 000000000100000001000000000000000100000002000000020000000200000006000000
   - enemies: 0000000001000000010000000200000001000000020000000200000009000000
   - enemies: 04000000
   - enemies: 00000000010000000100000000000000010000000500000006000000

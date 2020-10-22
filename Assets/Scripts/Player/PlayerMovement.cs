@@ -120,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void addSpeed(float i)     //estructura alternativa de Misiles
+    public void addSpeed(float i)     //añadir spped. Método asociado a la tienda
     {
         if (speed < maxSpeed)
         {
