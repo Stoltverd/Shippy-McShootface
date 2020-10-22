@@ -1,9 +1,13 @@
 # Shippy-McShootface
 Alpha scripting
+
 //Elementos usados//
-Los modelos 3d, sound effects, imágenes y particulas fueron extraídos de la asset strore, y como base el tutorial "space shooter" de unity learn
-La música de fondo es temporal y es del juego "space junkies"
-El diagrama de clases se encuentra en la carpeta de assets del proyecto
+Los modelos 3d, sound effects, imágenes y particulas fueron extraídos de la asset strore, y como base el tutorial "space shooter" de unity learn.
+La música corresponde a:
+  - Intro: Ground Zero - JDB Artist (licenced)
+  - Main Menu: Stranded - JDB Artist (licenced)
+  - Game: Game Theme Song - Feel for music - Ubisoft. Under fair use (education), tomada del juego 'Space Junkies'.
+El diagrama de clases del alpha se encuentra en la carpeta de assets del proyecto
 
 //Código//
 Esta versión Alpha cuenta con un pool para los objetos que se instanciarían repetidamente en la escena: bolst del player, bolts enemigos y los asteroides
